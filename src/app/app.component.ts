@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Barber } from './interface/barber.interface';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
