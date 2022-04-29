@@ -12,4 +12,11 @@ export class NavigationPanelPage implements OnInit {
   ngOnInit() {
   }
 
+  public navigationItems = [
+    { tab: 'home', name: 'home-outline', label: 'Home'},
+    { tab: 'schedule', name: 'book-outline', label: 'Schedule'},
+    { tab: 'settings', name: 'settings-outline', label: 'settings'}
+  ]
+
+
 }

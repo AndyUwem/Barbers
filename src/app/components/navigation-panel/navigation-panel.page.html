@@ -1,9 +1,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>navigation-panel</ion-title>
+
+    <ion-chip slot="end">
+      <ion-avatar>
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <ion-label>James Orion</ion-label>
+    </ion-chip>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-tabs>
+    <ion-tab-bar slot="bottom" >
+  
+      <ion-tab-button *ngFor="let navItems of navigationItems;" [tab]="navItems.tab" >
+        <ion-icon [name]="navItems.name"></ion-icon>
+        <ion-label>{{ navItems.label }}</ion-label>
+      </ion-tab-button>
+  
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>
