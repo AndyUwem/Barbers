@@ -1,28 +1,31 @@
-<ion-header id="dashboard-header">
-  <ion-toolbar>
- 
-    <ion-slides pager="true" [options]="slideOpts">
-      <ion-slide *ngFor="let slidesImage of slidesImages;">
-        <ion-img [src]="slidesImage.src"></ion-img>
-      </ion-slide>
-    </ion-slides>
 
+  <ion-header>
+       <div id="header-container">
 
-  </ion-toolbar>
-</ion-header>
+        <ion-slides pager="true" [options]="slideOpts">
+          <ion-slide *ngFor="let slidesImage of slidesImages;">
+            <ion-img id="slide-img" [src]="slidesImage.src"></ion-img>
+          </ion-slide>
+        </ion-slides>
+        
+      </div>
+  </ion-header>
 
-<ion-content>
-  <ion-card class="dashboard-card" button="true" *ngFor="let card of cards;">
+  <ion-content >
+    <div class="content-container">
+    <ion-card class="dashboard-card" button="true" *ngFor="let card of cards;">
     <ion-card-header>
       <ion-card-subtitle>
         <ion-icon [name]="card.iconName" id="dashboard-icon"></ion-icon> 
-       </ion-card-subtitle>
-      <ion-card-title id="dashboard-card-title"> {{ card.title }} </ion-card-title>
+      </ion-card-subtitle>
+      <ion-card-title id="dashboard-card-title" style="font-size: 15px;"> {{ card.title }} </ion-card-title>
     </ion-card-header>
   
     <ion-card-content id="dashboard-card-content">
       {{ card.subTitle }}
     </ion-card-content>
   </ion-card>
+</div>
+
 </ion-content>
  

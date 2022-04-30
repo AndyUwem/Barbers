@@ -22,7 +22,8 @@ export class HomeDashboardPage implements OnInit {
 
  public slidesImages: Array<{}> = [
    { src: 'assets/barbers-slide1.gif'},
-   { src: ''}
+   { src: 'assets/barbers-slide2.gif'},
+   { src: 'assets/barbers-slide3.gif'},
  ]
 
   public cards = [
