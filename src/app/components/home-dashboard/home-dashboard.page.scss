@@ -1,0 +1,26 @@
+#dashboard-header{
+    width: 95%;
+    margin: 2% auto;
+}
+
+#dashboard-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    margin-bottom: 2rem;
+    padding: 10px;
+    border: 2px solid #e1e1e1;  
+    color: #e1e1e1;
+    border-radius: 30px;
+}
+
+#dashboard-card-title, #dashboard-card-content{
+font-size: 13px;
+}
+
+.dashboard-card {
+    width: 47%; 
+    height: 45%;
+    float: left;
+    margin: 10px 1px 0px 10px;
+}

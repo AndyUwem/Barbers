@@ -13,9 +13,9 @@ export class NavigationPanelPage implements OnInit {
   }
 
   public navigationItems = [
-    { tab: 'home', name: 'home-outline', label: 'Home'},
-    { tab: 'history', name: 'book-outline', label: 'Schedule'},
-    { tab: 'settings', name: 'settings-outline', label: 'settings'}
+    { tab: 'home', name: 'home', label: 'Home'},
+    { tab: 'history', name: 'settings', label: 'Settings'},
+    { tab: 'settings', name: 'information-circle', label: 'About'}
   ]
 
 
