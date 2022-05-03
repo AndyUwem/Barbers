@@ -4,11 +4,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 
   {
-    path: '',
-    redirectTo: 'navigation-panel',
-    pathMatch: 'full'
-  },
-  {
     path: 'loader',
     loadChildren: () => import('./components/loader/loader.module').then( m => m.LoaderPageModule)
   },
@@ -27,7 +22,34 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: () => import('./components/settings/settings.module').then( m => m.SettingsPageModule)
-  }
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./components/about/about.module').then( m => m.AboutPageModule)
+  },
+  
+  {
+    path: '',
+    redirectTo: '/navigation-panel',
+    pathMatch: 'full'
+  },  {
+    path: 'apointment',
+    loadChildren: () => import('./components/apointment/apointment.module').then( m => m.ApointmentPageModule)
+  },
+  {
+    path: 'add-barber',
+    loadChildren: () => import('./components/add-barber/add-barber.module').then( m => m.AddBarberPageModule)
+  },
+  {
+    path: 'my-barbers',
+    loadChildren: () => import('./components/my-barbers/my-barbers.module').then( m => m.MyBarbersPageModule)
+  },
+  {
+    path: 'my-history',
+    loadChildren: () => import('./components/my-history/my-history.module').then( m => m.MyHistoryPageModule)
+  },
+
+
 ];
 
 @NgModule({

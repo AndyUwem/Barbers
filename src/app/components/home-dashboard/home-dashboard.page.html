@@ -12,8 +12,9 @@
   </ion-header>
 
   <ion-content >
+    <ion-router-outlet></ion-router-outlet>
     <div class="content-container">
-    <ion-card class="dashboard-card" button="true" *ngFor="let card of cards;">
+    <ion-card class="dashboard-card" button="true" *ngFor="let card of cards;" [routerLink]="card.tab">
     <ion-card-header>
       <ion-card-subtitle>
         <ion-icon [name]="card.iconName" id="dashboard-icon"></ion-icon> 

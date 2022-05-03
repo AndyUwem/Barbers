@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -8,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class HomeDashboardPage implements OnInit {
 
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-  }
 
+  }
 
   public slideOpts = {
     initialSlide: 0,
@@ -28,13 +29,13 @@ export class HomeDashboardPage implements OnInit {
 
   public cards = [
     { 
-       tab: 'home', iconName: 'cut',
-       title: 'Book barbing apointment',
+       tab: '/apointment', iconName: 'cut',
+       title: 'Book barbing appointment',
        subTitle: 'Schedule a new barbing session with your favourite barber.'
     },
 
     { 
-      tab: 'home', iconName: 'person-add',
+      tab: '/home', iconName: 'person-add',
       title: 'Add new barber',
       subTitle: 'Add a new barber to your collection of barbers.'
    },

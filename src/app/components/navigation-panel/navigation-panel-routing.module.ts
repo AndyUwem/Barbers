@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AboutPage } from '../about/about.page';
 import { HomeDashboardPage } from '../home-dashboard/home-dashboard.page';
 import { SettingsPage } from '../settings/settings.page';
-import { TransactionHistoryPage } from '../transaction-history/transaction-history.page';
 
 import { NavigationPanelPage } from './navigation-panel.page';
 
@@ -11,12 +11,13 @@ const routes: Routes = [
     path: '',
     component: NavigationPanelPage,
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeDashboardPage },
       { path: 'settings', component: SettingsPage },
-      { path: 'history', component: TransactionHistoryPage }
+      { path: 'about', component: AboutPage },
+      { path: '', redirectTo: '/navigation-panel/home' }
     ]
-  }
+  },
+ 
 ];
 
 @NgModule({

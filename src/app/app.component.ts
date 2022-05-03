@@ -7,8 +7,6 @@ templateUrl: 'app.component.html',
 export class AppComponent implements OnInit{
 
    public isLoading: boolean = true;
-  
-
 
   constructor() {}
 
@@ -17,7 +15,7 @@ export class AppComponent implements OnInit{
   }
 
   private loadApplication() {
-        setTimeout(() => this.isLoading = false, 1000)
+        setTimeout(() => this.isLoading = false, 2000);
   }
 
 
