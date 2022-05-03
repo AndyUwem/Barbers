@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ApointmentPageRoutingModule } from './apointment-routing.module';
 
 import { ApointmentPage } from './apointment.page';
+import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ApointmentPageRoutingModule
+    ApointmentPageRoutingModule,
+    BackButtonPageModule
   ],
   declarations: [ApointmentPage]
 })

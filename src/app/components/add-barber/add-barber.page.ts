@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddBarberPage implements OnInit {
 
+  public back_button_url: string = '/navigation-panel/home';
+  
   constructor() { }
 
   ngOnInit() {

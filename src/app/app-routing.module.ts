@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'my-history',
     loadChildren: () => import('./components/my-history/my-history.module').then( m => m.MyHistoryPageModule)
   },
+  {
+    path: 'back-button',
+    loadChildren: () => import('./reuseables/back-button/back-button.module').then( m => m.BackButtonPageModule)
+  },
 
 
 ];
