@@ -35,19 +35,19 @@ export class HomeDashboardPage implements OnInit {
     },
 
     { 
-      tab: '/home', iconName: 'person-add',
+      tab: '/add-barber', iconName: 'person-add',
       title: 'Add new barber',
       subTitle: 'Add a new barber to your collection of barbers.'
    },
 
    { 
-    tab: 'home', iconName: 'globe',
+    tab: '/my-barbers', iconName: 'globe',
     title: 'My barbers',
     subTitle: 'View all barbers that are linked to you.'
   },
 
  { 
-  tab: 'home', iconName: 'book',
+  tab: '/my-history', iconName: 'book',
   title: 'Check History',
   subTitle: 'View your histories with already linked barbers'
  }
