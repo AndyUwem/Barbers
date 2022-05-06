@@ -13,7 +13,7 @@ import { LoaderPageModule } from './components/loader/loader.module';
   entryComponents: [],
   imports: [
      BrowserModule,
-     IonicModule.forRoot(), 
+     IonicModule.forRoot(),
      AppRoutingModule,
      LoaderPageModule
     ],

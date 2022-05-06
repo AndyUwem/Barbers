@@ -8,19 +8,19 @@
       </ion-avatar>
       <ion-label>James Orion</ion-label>
     </ion-chip>
-    
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-  
-      <ion-tab-button *ngFor="let navItems of navigationItems;" [tab]="navItems.tab">
-        <ion-icon [name]="navItems.name"></ion-icon>
-        <ion-label>{{ navItems.label }}</ion-label>
+
+      <ion-tab-button *ngFor="let tabRoute of tabRoutes;" [tab]="tabRoute.url">
+        <ion-icon [name]="tabRoute.name"></ion-icon>
+        <ion-label>{{ tabRoute.label }}</ion-label>
       </ion-tab-button>
-  
+
     </ion-tab-bar>
   </ion-tabs>
 </ion-content>

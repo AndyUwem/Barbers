@@ -10,10 +10,14 @@
     border-radius: 30px;
 }
 
-#dashboard-card-title, #dashboard-card-content{
-    font-family: inherit;
-    font-size: 12px;
+#dashboard-card-title{
+    font-size: 15px;
     font-weight: bold;
     color: var(--color-light-blue);
+}
+
+#dashboard-card-content{
+  font-size: 12px;
+  color: var(--color-light-blue);
 }
 

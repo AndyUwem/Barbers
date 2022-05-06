@@ -13,21 +13,6 @@
 
   <ion-content >
 
-    <!-- <div class="content-container">
-    <ion-card class="dashboard-card" button="true" *ngFor="let card of cards;" [routerLink]="card.tab" routerDirection="forward">
-    <ion-card-header>
-      <ion-card-subtitle>
-        <ion-icon [name]="card.iconName" id="dashboard-icon"></ion-icon>
-      </ion-card-subtitle>
-      <ion-card-title id="dashboard-card-title" style="font-size: 15px;"> {{ card.title }} </ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content id="dashboard-card-content">
-      {{ card.subTitle }}
-    </ion-card-content>
-  </ion-card>
-</div> -->
-
 <ion-grid>
   <ion-row>
     <ion-col size="6" class="ion-align-self-center" fixed="true"
@@ -37,7 +22,7 @@
           <ion-card-subtitle>
             <ion-icon [name]="card.iconName" id="dashboard-icon"></ion-icon>
           </ion-card-subtitle>
-          <ion-card-title id="dashboard-card-title" style="font-size: 15px;"> {{ card.title }} </ion-card-title>
+          <ion-card-title id="dashboard-card-title"> {{ card.title }} </ion-card-title>
         </ion-card-header>
 
         <ion-card-content id="dashboard-card-content">

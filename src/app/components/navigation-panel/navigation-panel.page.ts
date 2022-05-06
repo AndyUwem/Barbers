@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationPanelService } from './navigation-panel.service';
 
 @Component({
   selector: 'app-navigation-panel',
@@ -7,15 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationPanelPage implements OnInit {
 
-  public navigationItems = [
-    { tab: 'home', name: 'home', label: 'Home'},
-    { tab: 'settings', name: 'settings', label: 'Settings'},
-    { tab: 'about', name: 'information-circle', label: 'About'}
-  ];
+  public tabRoutes = [];
 
-  constructor() { }
+  constructor(private navigationPanelService: NavigationPanelService) { }
 
   ngOnInit() {
+    this.tabRoutes = [...this.navigationPanelService.getTabRoutes];
   }
 
 }
