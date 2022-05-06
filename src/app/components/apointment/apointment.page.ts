@@ -7,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApointmentPage implements OnInit {
 
-  public back_button_url: string = '/navigation-panel/home';
-
+  public backButtonUrl = '/navigation-panel/nav/home';
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

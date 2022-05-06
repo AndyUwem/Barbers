@@ -7,16 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationPanelPage implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
   public navigationItems = [
     { tab: 'home', name: 'home', label: 'Home'},
     { tab: 'settings', name: 'settings', label: 'Settings'},
     { tab: 'about', name: 'information-circle', label: 'About'}
-  ]
+  ];
 
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }

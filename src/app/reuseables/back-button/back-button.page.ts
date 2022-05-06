@@ -6,8 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./back-button.page.scss'],
 })
 export class BackButtonPage implements OnInit {
-  
- @Input('url') url: string;
+
+ @Input() url: string;
 
   constructor() { }
 
