@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
+import { ApointmentListViewComponent } from './apointment-list-view/apointment-list-view.component';
 import { ApointmentService } from './apointment.service';
 
 @Component({
@@ -14,20 +16,24 @@ export class ApointmentPage implements OnInit {
 
   constructor(
     private navigationPanelService: NavigationPanelService,
-    private apointmentService: ApointmentService
+    private apointmentService: ApointmentService,
+    private modalCtrl: ModalController
     ) { }
 
   ngOnInit() {
     this.backButtonUrl = this.navigationPanelService.backToHomeUrl;
-    this.apointmentListItems =  [...this.apointmentService.getApointmentListItems]
+    this.apointmentListItems =  [...this.apointmentService.getApointmentListItems];
   }
 
-  public setSelectedListItemValue(index: number) {
-        
-          if(index == 0)
-          this.apointmentListItems[index].value = 'Home service'
-          else if(index == 1)
-          this.apointmentListItems[index].value = 'Dada'
+  public onOpenListItems(index: number){
+          this.modalCtrl
+          .create({ component: ApointmentListViewComponent, componentProps: { index } })
+          .then( modal => {
+            modal.present();
+            return modal.onDidDismiss();
+          })
+          .then( resultData => console.log(resultData.data.index));
   }
+
 
 }
