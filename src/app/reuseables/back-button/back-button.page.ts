@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-back-button',
@@ -9,9 +10,12 @@ export class BackButtonPage implements OnInit {
 
  @Input() url: string;
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
+  public onBackButtonCtrl(): void {
+      this.navCtrl.navigateBack(this.url);
+  }
 }

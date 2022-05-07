@@ -5,8 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class NavigationPanelService {
 
+  public backToHomeUrl = '/navigation-panel/nav/home';
 
   constructor() { }
+
 
   public get getTabRoutes(){
     return [
@@ -15,6 +17,5 @@ export class NavigationPanelService {
       { url: 'about', name: 'information-circle', label: 'About'}
     ];
   }
-
 
 }
