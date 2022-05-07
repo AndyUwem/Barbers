@@ -8,6 +8,7 @@ import { ApointmentPageRoutingModule } from './apointment-routing.module';
 
 import { ApointmentPage } from './apointment.page';
 import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button.module';
+import { ApointmentListViewComponent } from './apointment-list-view/apointment-list-view.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button
     ApointmentPageRoutingModule,
     BackButtonPageModule
   ],
-  declarations: [ApointmentPage]
+  declarations: [ApointmentPage, ApointmentListViewComponent],
+  entryComponents: [ApointmentListViewComponent]
 })
 export class ApointmentPageModule {}

@@ -1,3 +1,30 @@
-<p>
-  apointment-list-view works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-buttons>
+    <ion-button (click)="onCloseListView()"
+     color="primary">
+        <ion-icon name="close"></ion-icon>
+    </ion-button>
+      </ion-buttons>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col szie="12">
+        <ion-list>
+          <ion-item>
+          <ion-label>
+            <h2>Home Service</h2>
+            <p>select if you want this apointment at your place</p>
+          </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

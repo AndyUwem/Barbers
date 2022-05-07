@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-apointment-list-view',
@@ -7,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApointmentListViewComponent implements OnInit {
 
-  constructor() { }
+  @Input() index: number;
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {}
+
+  public onCloseListView(){
+      this.modalCtrl
+      .dismiss({ index: this.index }, 'cancel');
+  }
 
 }

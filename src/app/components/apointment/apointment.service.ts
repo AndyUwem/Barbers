@@ -9,14 +9,34 @@ export class ApointmentService {
 
   public get getApointmentListItems() {
     return [
-      { 
-        title: 'Select your hair service type',
-        value: '.......' 
+      {
+        title: 'Select hair service type',
+        value: '.......'
       },
-      { 
-        title: 'Select prefered hair style', 
-        value: '.......' 
+      {
+        title: 'Select hair style',
+        value: '.......'
+      },
+      {
+        title: 'Do you wish to apply hair die ?',
+        value: '.......'
+      },
+      {
+        title: 'Select hair die color',
+        value: '.......'
+      },
+      {
+        title: 'Select prefered cliper brand',
+        value: '.......'
+      },
+      {
+        title: 'Do you wish to apply hair treatments ?',
+        value: '.......'
+      },
+      {
+        title: 'Appointment Date',
+        value: '.......'
       }
-    ]
+    ];
   }
 }
