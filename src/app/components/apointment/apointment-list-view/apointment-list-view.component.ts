@@ -1,5 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Barber } from 'src/app/interface/barber.interface';
+
+type RecievedData = {
+  selectedBarber: Barber;
+  selectedItemIndex: number;
+};
+
 
 @Component({
   selector: 'app-apointment-list-view',
@@ -8,14 +15,21 @@ import { ModalController } from '@ionic/angular';
 })
 export class ApointmentListViewComponent implements OnInit {
 
-  @Input() index: number;
+  @Input() recievedData: RecievedData;
+
   constructor(private modalCtrl: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+
 
   public onCloseListView(){
+    const returnedData = {
+          selectedValue: 0
+    };
       this.modalCtrl
-      .dismiss({ index: this.index }, 'cancel');
+      .dismiss(null, 'cancel');
   }
 
 }

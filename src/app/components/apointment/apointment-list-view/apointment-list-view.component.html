@@ -17,12 +17,68 @@
     <ion-row>
       <ion-col szie="12">
         <ion-list>
-          <ion-item>
+          <!-- ng-template views list.. -->
+          <ng-template [ngIf]="recievedData.selectedItemIndex === 0">
+          <ion-item *ngFor="let hairServiceType of recievedData.selectedBarber.hairServiceType">
           <ion-label>
-            <h2>Home Service</h2>
-            <p>select if you want this apointment at your place</p>
+            <h2>{{ hairServiceType.title }}</h2>
+            <p>{{ hairServiceType.subTitle }}</p>
           </ion-label>
           </ion-item>
+        </ng-template>
+
+        <ng-template [ngIf]="recievedData.selectedItemIndex === 1">
+          <ion-item *ngFor="let hairStyle of recievedData.selectedBarber.hairStyle" >
+            <ion-thumbnail>
+              <ion-img src={{hairStyle.hairStyleImage}}></ion-img>
+            </ion-thumbnail>
+          <ion-label>
+            <h2>{{hairStyle.hairStyleName}}</h2>
+            <p>{{hairStyle.hairStyleCost | currency:'USD'}}</p>
+          </ion-label>
+          </ion-item>
+        </ng-template>
+
+        <ng-template [ngIf]="recievedData.selectedItemIndex === 2">
+          <ion-item>
+            <ion-label>
+              <h2>prompt message Yes or No</h2>
+            </ion-label>
+            </ion-item>
+        </ng-template>
+
+        <ng-template [ngIf]="recievedData.selectedItemIndex === 3">
+          <h2>Select a color</h2>
+
+          <ion-item *ngFor="let hairDieColor of recievedData.selectedBarber.hairDieColors">
+            <ion-label>
+              <h2>{{hairDieColor}}</h2>
+            </ion-label>
+            </ion-item>
+        </ng-template>
+
+        <ng-template [ngIf]="recievedData.selectedItemIndex === 4">
+          <h2>Select a cliper</h2>
+
+          <ion-item *ngFor="let cliperType of recievedData.selectedBarber.cliper">
+            <ion-thumbnail>
+              <ion-img src={{cliperType.cliperImage}}></ion-img>
+            </ion-thumbnail>
+          <ion-label>
+            <h2>{{cliperType.cliperName}}</h2>
+            <p>{{cliperType.brand}}</p>
+          </ion-label>
+            </ion-item>
+        </ng-template>
+
+        <ng-template [ngIf]="recievedData.selectedItemIndex === 5">
+          <ion-item>
+            <ion-label>
+              <h2>prompt message Yes or No</h2>
+            </ion-label>
+            </ion-item>
+        </ng-template>
+ <!-- ng-template views list.. end -->
         </ion-list>
       </ion-col>
     </ion-row>

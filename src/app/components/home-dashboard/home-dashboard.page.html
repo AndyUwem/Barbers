@@ -1,14 +1,17 @@
 
   <ion-header>
-    <div id="header-container">
 
-      <ion-slides pager="true" [options]="slideOpts">
-        <ion-slide *ngFor="let slidesImage of slidesImages;">
-          <ion-img id="slide-img" [src]="slidesImage.src"></ion-img>
-        </ion-slide>
-      </ion-slides>
+    <ion-card>
+      <ion-card-content id="dashboard-card-content">
+        <ion-slides pager="true" [options]="slideOpts">
+          <ion-slide *ngFor="let slidesImage of slidesImages;">
+            <ion-img id="slide-img" [src]="slidesImage.src"></ion-img>
+          </ion-slide>
+        </ion-slides>
+      </ion-card-content>
+    </ion-card>
 
-    </div>
+
   </ion-header>
 
   <ion-content >
