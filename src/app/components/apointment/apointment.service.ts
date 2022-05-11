@@ -1,38 +1,40 @@
 import { Injectable } from '@angular/core';
+import { ApointmentListOptions } from 'src/app/interface/apointmen-list-options.interface';
 import { Barber } from 'src/app/interface/barber.interface';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApointmentService {
 
   constructor() { }
 
-  public get getApointmentListItems() {
+  public get getApointmentListItems(): Array<ApointmentListOptions> {
     return [
       {
         title: 'Select hair service type',
-        value: '.......'
+        value: 'none'
       },
       {
         title: 'Select hair style',
-        value: '.......'
+        value: 'none'
       },
       {
         title: 'Do you wish to apply hair die ?',
-        value: '.......'
+        value: 'none'
       },
       {
         title: 'Select hair die color',
-        value: '.......'
+        value: 'none'
       },
       {
         title: 'Select prefered cliper brand',
-        value: '.......'
+        value: 'none'
       },
       {
         title: 'Do you wish to apply hair treatments ?',
-        value: '.......'
+        value: 'none'
       }
     ];
   }

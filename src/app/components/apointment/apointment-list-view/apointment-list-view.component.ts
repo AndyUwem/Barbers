@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Barber } from 'src/app/interface/barber.interface';
+import { SelectedItemFromChildList } from 'src/app/interface/selected-item-data.interface';
 
-type RecievedData = {
+type DataFromParent = {
   selectedBarber: Barber;
   selectedItemIndex: number;
 };
@@ -15,21 +16,33 @@ type RecievedData = {
 })
 export class ApointmentListViewComponent implements OnInit {
 
-  @Input() recievedData: RecievedData;
+  @Input() dataFromParent: DataFromParent;
+  public barber: Barber;
 
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
-
+     this.barber = {...this.dataFromParent.selectedBarber};
   }
 
 
   public onCloseListView(){
-    const returnedData = {
-          selectedValue: 0
-    };
       this.modalCtrl
-      .dismiss(null, 'cancel');
+      .dismiss(null,'canceled');
   }
+
+  public getSelectedItem(item: any): void{
+    const dataToParent: SelectedItemFromChildList = {
+      selectedListItem: item,
+      selectedItemIndexFromParent: this.dataFromParent.selectedItemIndex
+      };
+  this
+  .modalCtrl
+  .dismiss(dataToParent, 'selected');
+  }
+
+
+
+
 
 }
