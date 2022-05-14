@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ApointmentListOptions } from 'src/app/interface/apointmen-list-options.interface';
-import { Barber } from 'src/app/interface/barber.interface';
-import { SelectedItemFromChildList } from 'src/app/interface/selected-item-data.interface';
+
 import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
-import { ApointmentListViewComponent } from './apointment-list-view/apointment-list-view.component';
 import { ApointmentService } from './apointment.service';
+
+import { ApointmentListOptions } from 'src/app/interface/apointmen-list-options.interface';
+import { ApointmentListViewComponent } from './apointment-list-view/apointment-list-view.component';
+import { Barber } from 'src/app/interface/barber.interface';
 
 @Component({
   selector: 'app-apointment',
@@ -20,7 +21,7 @@ export class ApointmentPage implements OnInit {
   public isServicesListView: boolean;
   public barbers: Array<Barber>;
   public selectedBarber: Barber;
-  public apointmentOrderColection = new Set<SelectedItemFromChildList>();
+  public apointmentOrderColection = new Map();
 
   constructor(
     private navigationPanelService: NavigationPanelService,
@@ -45,11 +46,17 @@ export class ApointmentPage implements OnInit {
             return modal.onDidDismiss();
           })
           .then((resultData: any) =>{
-           const selectedListItem = resultData.data.selectedListItem;
+              if(resultData.role === 'selected'){
+                const selectedListItem = resultData.data.selectedListItem;
 
-           this.populateNewApointmentList(selectedItemIndex, selectedListItem);
-            console.log(selectedListItem, selectedItemIndex);
+                this.populateNewApointmentList(selectedItemIndex, selectedListItem);
+                 console.log(selectedListItem, selectedItemIndex);
+              }
           });
+  }
+
+  public bookApointment(): void {
+      console.log(this.apointmentOrderColection);
   }
 
   public getSelectedBarber(index: number): void {
@@ -69,37 +76,44 @@ export class ApointmentPage implements OnInit {
           case 0:
           this.apointmentListItems[listIndex]
           .value = item.title;
+          this.apointmentOrderColection.set(listIndex, item.title);
           break;
 
           case 1:
           this.apointmentListItems[listIndex]
           .value = item.hairStyleName;
+          this.apointmentOrderColection.set(listIndex, item);
           break;
 
           case 2:
           this.apointmentListItems[listIndex]
-          .value = item.title;
+          .value = item;
+          this.apointmentOrderColection.set(listIndex, item);
           break;
 
           case 3:
           this.apointmentListItems[listIndex]
-          .value = item;
+          .value = item.cliperName;
+          this.apointmentOrderColection.set(listIndex, item);
           break;
 
           case 4:
           this.apointmentListItems[listIndex]
-          .value = item.cliperName;
-          break;
-
-          case 5:
-          this.apointmentListItems[listIndex]
-          .value = item.title;
+          .value = item;
+          this.apointmentOrderColection.set(listIndex, item);
           break;
      };
       }
 
 
-
+        // private switchApointmentList(index: number, value: any): void{
+        //   switch(index){
+        //     case index:
+        //     const listItem = this.apointmentListItems[index].value = value;
+        //     this.apointmentOrderColection.set(index, value);
+        //     break;
+        //     }
+        // }
 
 
 }

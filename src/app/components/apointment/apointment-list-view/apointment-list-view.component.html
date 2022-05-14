@@ -46,16 +46,6 @@
         </ng-template>
 
         <ng-template [ngIf]="dataFromParent.selectedItemIndex === 2">
-          <ion-item
-          button="true"
-          (click)="getSelectedItem(applyHairDie)">
-            <ion-label>
-              <h2 #applyHairDie>prompt message Yes or No</h2>
-            </ion-label>
-            </ion-item>
-        </ng-template>
-
-        <ng-template [ngIf]="dataFromParent.selectedItemIndex === 3">
           <h2>Select a color</h2>
 
           <ion-item
@@ -68,7 +58,7 @@
             </ion-item>
         </ng-template>
 
-        <ng-template [ngIf]="dataFromParent.selectedItemIndex === 4">
+        <ng-template [ngIf]="dataFromParent.selectedItemIndex === 3">
           <h2>Select a cliper</h2>
 
           <ion-item
@@ -85,13 +75,14 @@
             </ion-item>
         </ng-template>
 
-        <ng-template [ngIf]="dataFromParent.selectedItemIndex === 5">
+        <ng-template [ngIf]="dataFromParent.selectedItemIndex === 4">
           <ion-item
           button="true"
-          (click)="getSelectedItem(applyHairTreatment)"
+          (click)="getSelectedItem(hairTreatmentOption)"
+          *ngFor="let hairTreatmentOption of barber.hairTreatmentOptions"
           >
             <ion-label>
-              <h2 #applyHairTreatment>prompt message Yes or No</h2>
+              <h2>{{ hairTreatmentOption }}</h2>
             </ion-label>
             </ion-item>
         </ng-template>

@@ -12,8 +12,8 @@ export class HomeDashboardService {
     return [
       {
          tab: '/apointment', iconName: 'cut',
-         title: 'Book barbing appointment',
-         subTitle: 'Schedule a new barbing session with your favourite barber.'
+         title: 'Book appointment',
+         subTitle: 'Schedule a new barbing session.'
       },
       {
         tab: '/add-barber', iconName: 'person-add',

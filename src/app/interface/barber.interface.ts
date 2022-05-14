@@ -10,6 +10,6 @@ export interface Barber extends User {
     hairStyle: HairStyle[];
     hairServiceType: Array<{ title: string; subTitle: string}>;
     hairDieColors: string[];
-    hasHairTreatment: boolean;
+    hairTreatmentOptions: string[];
 
 }
