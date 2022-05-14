@@ -19,7 +19,7 @@ export class ApointmentService {
         value: 'none',
       },
       {
-        title: 'Select hair die color',
+        title: 'Select hair die',
         value: 'none',
       },
       {
@@ -52,6 +52,7 @@ export class ApointmentService {
             cliperName: 'Chaoba 1x0',
             cliperImage: '',
             brand: 'chaoba',
+            cost: 5.00
           },
         ],
         hairStyle: [
@@ -59,28 +60,37 @@ export class ApointmentService {
             id: '1001',
             hairStyleName: 'Afro',
             hairStyleImage: '',
-            hairStyleCost: 50,
+            cost: 50,
           },
           {
             id: '1002',
             hairStyleName: 'Low Cut',
             hairStyleImage: '',
-            hairStyleCost: 10,
+            cost: 2.00,
           },
         ],
         hairServiceType: [
           {
             title: 'Home Service',
-            subTitle: 'select if you want this apointment at your place.',
+            subTitle: 'set this apointment at your place.',
+            cost: 10.00
           },
           {
             title: 'Barber\'s Shop',
             subTitle:
-              'select if you want this apointment at the barber\'s shop.',
+              'set this apointment at the barber\'s shop.',
+              cost: 6.00
           },
         ],
-        hairDieColors: ['Gold', 'Black', 'None'],
-        hairTreatmentOptions: ['Yes', 'No']
+        hairDieColors: [
+          { color: 'Gold', cost: 5.00 },
+          { color: 'Black', cost: 4.00 },
+          { color: 'None', cost: 0.00 }
+        ],
+        hairTreatmentOptions: [
+          { option: 'Yes', cost: 1.00 },
+          { option: 'No', cost: 0.00 }
+          ]
       },
     ];
   }

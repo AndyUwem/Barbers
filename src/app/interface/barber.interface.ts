@@ -8,8 +8,8 @@ export interface Barber extends User {
     companyImage: string;
     cliper: Cliper[];
     hairStyle: HairStyle[];
-    hairServiceType: Array<{ title: string; subTitle: string}>;
-    hairDieColors: string[];
-    hairTreatmentOptions: string[];
+    hairServiceType: Array<{ title: string; subTitle: string; cost: number}>;
+    hairDieColors: Array<{color: string; cost: number}>;
+    hairTreatmentOptions: Array<{option: string; cost: number}>;
 
 }

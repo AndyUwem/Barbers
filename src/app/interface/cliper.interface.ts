@@ -4,4 +4,5 @@ export interface Cliper {
     cliperName: string;
     cliperImage: string;
     brand: string;
+    cost: number;
 }

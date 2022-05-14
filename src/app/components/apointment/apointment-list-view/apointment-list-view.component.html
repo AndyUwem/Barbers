@@ -25,7 +25,11 @@
            *ngFor="let hairServiceType of barber.hairServiceType; let i = index;">
           <ion-label>
             <h2>{{ hairServiceType.title }}</h2>
-            <p>{{ hairServiceType.subTitle }}</p>
+            <p> {{ hairServiceType.subTitle }}</p>
+          </ion-label>
+
+          <ion-label slot="end">
+            <p>Cost: {{ hairServiceType.cost | currency: 'USD'}}</p>
           </ion-label>
           </ion-item>
         </ng-template>
@@ -40,7 +44,7 @@
             </ion-thumbnail>
           <ion-label>
             <h2>{{hairStyle.hairStyleName}}</h2>
-            <p>{{hairStyle.hairStyleCost | currency:'USD'}}</p>
+            <p>{{hairStyle.cost | currency:'USD'}}</p>
           </ion-label>
           </ion-item>
         </ng-template>
@@ -53,7 +57,11 @@
           (click)="getSelectedItem(hairDieColor)"
           *ngFor="let hairDieColor of barber.hairDieColors">
             <ion-label>
-              <h2>{{hairDieColor}}</h2>
+              <h2>{{hairDieColor.color}}</h2>
+            </ion-label>
+
+            <ion-label slot="end">
+              <p> Cost: {{hairDieColor.cost | currency:'USD'}}</p>
             </ion-label>
             </ion-item>
         </ng-template>
@@ -72,6 +80,9 @@
             <h2>{{cliperType.cliperName}}</h2>
             <p>{{cliperType.brand}}</p>
           </ion-label>
+          <ion-label slot="end">
+            <p> Cost: {{cliperType.cost | currency:'USD'}}</p>
+          </ion-label>
             </ion-item>
         </ng-template>
 
@@ -82,7 +93,11 @@
           *ngFor="let hairTreatmentOption of barber.hairTreatmentOptions"
           >
             <ion-label>
-              <h2>{{ hairTreatmentOption }}</h2>
+              <h2>{{ hairTreatmentOption.option }}</h2>
+            </ion-label>
+
+            <ion-label slot="end">
+              <p> Cost: {{ hairTreatmentOption.cost | currency:'USD'}}</p>
             </ion-label>
             </ion-item>
         </ng-template>

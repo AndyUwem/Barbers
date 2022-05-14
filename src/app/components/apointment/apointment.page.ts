@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 
 import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
 import { ApointmentService } from './apointment.service';
@@ -7,6 +7,7 @@ import { ApointmentService } from './apointment.service';
 import { ApointmentListOptions } from 'src/app/interface/apointmen-list-options.interface';
 import { ApointmentListViewComponent } from './apointment-list-view/apointment-list-view.component';
 import { Barber } from 'src/app/interface/barber.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-apointment',
@@ -16,17 +17,23 @@ import { Barber } from 'src/app/interface/barber.interface';
 export class ApointmentPage implements OnInit {
 
   public todaysDate: Date = new Date();
-  public backButtonUrl: string;
+  public apointmentOrderColection = new Map();
+
   public apointmentListItems: Array<ApointmentListOptions>;
-  public isServicesListView: boolean;
   public barbers: Array<Barber>;
   public selectedBarber: Barber;
-  public apointmentOrderColection = new Map();
+  public backButtonUrl: string;
+  public isServicesListView: boolean;
+
+  public isCalculateTotalCost = true;
+  public totalOrderCost = 0;
 
   constructor(
     private navigationPanelService: NavigationPanelService,
     private apointmentService: ApointmentService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private loadingCtr: LoadingController,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -51,12 +58,24 @@ export class ApointmentPage implements OnInit {
 
                 this.populateNewApointmentList(selectedItemIndex, selectedListItem);
                  console.log(selectedListItem, selectedItemIndex);
+                 this.resetCost();
               }
           });
   }
 
+  public calculateBookingCost(): void{
+    for( const [key, value] of this.apointmentOrderColection ){
+        this.totalOrderCost += Number(value.cost);
+        }
+      this.showCostLoadingIndicator();
+  }
+
   public bookApointment(): void {
-      console.log(this.apointmentOrderColection);
+          console.log(this.apointmentOrderColection.size);
+  }
+
+  public cancelApointment(): void{
+          this.router.navigateByUrl(this.navigationPanelService.backToHomeUrl);
   }
 
   public getSelectedBarber(index: number): void {
@@ -76,7 +95,7 @@ export class ApointmentPage implements OnInit {
           case 0:
           this.apointmentListItems[listIndex]
           .value = item.title;
-          this.apointmentOrderColection.set(listIndex, item.title);
+          this.apointmentOrderColection.set(listIndex, item);
           break;
 
           case 1:
@@ -87,7 +106,7 @@ export class ApointmentPage implements OnInit {
 
           case 2:
           this.apointmentListItems[listIndex]
-          .value = item;
+          .value = item.color;
           this.apointmentOrderColection.set(listIndex, item);
           break;
 
@@ -99,21 +118,29 @@ export class ApointmentPage implements OnInit {
 
           case 4:
           this.apointmentListItems[listIndex]
-          .value = item;
+          .value = item.option;
           this.apointmentOrderColection.set(listIndex, item);
           break;
      };
       }
 
+      private showCostLoadingIndicator(): void{
+        this.loadingCtr.create({
+          message: 'Calculating Cost...',
+          keyboardClose: true,
+          spinner: 'bubbles'
+        })
+        .then( loadingEl => {
+            loadingEl.present();
+            setTimeout(()=>{
+              loadingEl.dismiss();
+              this.isCalculateTotalCost = false;
+            }, 3000);
+        });
+      }
 
-        // private switchApointmentList(index: number, value: any): void{
-        //   switch(index){
-        //     case index:
-        //     const listItem = this.apointmentListItems[index].value = value;
-        //     this.apointmentOrderColection.set(index, value);
-        //     break;
-        //     }
-        // }
-
-
+      private resetCost(): void{
+        this.isCalculateTotalCost = true;
+        this.totalOrderCost = 0;
+      }
 }
