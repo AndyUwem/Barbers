@@ -9,6 +9,7 @@ import { ApointmentPageRoutingModule } from './apointment-routing.module';
 import { ApointmentPage } from './apointment.page';
 import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button.module';
 import { ApointmentListViewComponent } from './apointment-list-view/apointment-list-view.component';
+import { MyBarbersPageModule } from '../my-barbers/my-barbers.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ApointmentListViewComponent } from './apointment-list-view/apointment-l
     FormsModule,
     IonicModule,
     ApointmentPageRoutingModule,
-    BackButtonPageModule
+    BackButtonPageModule,
+    MyBarbersPageModule
   ],
   declarations: [ApointmentPage, ApointmentListViewComponent],
   entryComponents: [ApointmentListViewComponent]

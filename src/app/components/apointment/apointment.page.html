@@ -6,26 +6,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ng-container *ngIf="!isServicesListView; else servicesListView">
-    <ion-label>
-      <h1>Please select a barber</h1>
-    </ion-label>
-    <ion-list>
-  <ion-item *ngFor="let barber of barbers; let i = index;"
-    routerDirection="forward"
-    button="true"
-    (click)="getSelectedBarber(i)">
-    <ion-thumbnail>
-      <ion-img src={{barber.companyImage}}>
-   </ion-img>
-    </ion-thumbnail>
-  <ion-label>
-    <h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
-    <p>{{ barber.address }}</p>
-  </ion-label >
-  </ion-item>
-</ion-list>
+    <app-my-barbers></app-my-barbers>
 </ng-container>
 </ion-content>
 

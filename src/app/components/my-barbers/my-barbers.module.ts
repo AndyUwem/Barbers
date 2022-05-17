@@ -15,6 +15,7 @@ import { MyBarbersPage } from './my-barbers.page';
     IonicModule,
     MyBarbersPageRoutingModule
   ],
-  declarations: [MyBarbersPage]
+  declarations: [MyBarbersPage],
+  exports: [MyBarbersPage]
 })
 export class MyBarbersPageModule {}

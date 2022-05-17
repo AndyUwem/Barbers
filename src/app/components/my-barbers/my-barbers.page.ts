@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Barber } from 'src/app/interface/barber.interface';
-import { ApointmentService } from '../apointment/apointment.service';
+import { MyBarbersService } from './my-barbers.service';
 
 @Component({
   selector: 'app-my-barbers',
@@ -14,7 +14,7 @@ export class MyBarbersPage implements OnInit {
   public isServicesListView: boolean;
   public selectedBarber: Barber;
 
-  constructor(private apointmentService: ApointmentService) { }
+  constructor(private barbersService: MyBarbersService) { }
 
   ngOnInit() {
     this.onLoadBarbers();
@@ -26,16 +26,20 @@ export class MyBarbersPage implements OnInit {
 }
 
 public addBarber(): void{
-  this.barberObject();
+  this.barbersService.addNewBarber(this.newBarberObject())
+  .subscribe((responseData: string) => console.log(responseData));
 }
 
 private onLoadBarbers(): void{
-  this.barbers = [...this.apointmentService.getAllBarbers()];
+  this.barbersService.getAllBarbers()
+  .subscribe((responseData: Barber[]) => {
+    this.barbers = [...responseData];
+  });
 }
 
 
-private barberObject(): void{
-  const barber: Barber =  {
+private newBarberObject(): Barber{
+  return {
     id: 0,
     firstName: 'Aron',
     lastName: 'Black',
