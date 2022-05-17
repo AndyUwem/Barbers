@@ -20,7 +20,6 @@ export class ApointmentPage implements OnInit {
   public apointmentOrderColection = new Map();
 
   public apointmentListItems: Array<ApointmentListOptions>;
-  public barbers: Array<Barber>;
   public selectedBarber: Barber;
   public backButtonUrl: string;
   public isServicesListView: boolean;
@@ -78,16 +77,11 @@ export class ApointmentPage implements OnInit {
           this.router.navigateByUrl(this.navigationPanelService.backToHomeUrl);
   }
 
-  public getSelectedBarber(index: number): void {
-           this.isServicesListView = true;
-           this.selectedBarber = {...this.barbers[index]};
-      }
 
   private onPageLoad(): void {
     this.backButtonUrl = this.navigationPanelService.backToHomeUrl;
     this.apointmentListItems =  [...this.apointmentService.getApointmentListItems];
     this.isServicesListView = false;
-    this.barbers = [...this.apointmentService.getAllBarbers()];
       }
 
     private populateNewApointmentList(listIndex: number, item: any): void{
@@ -143,4 +137,9 @@ export class ApointmentPage implements OnInit {
         this.isCalculateTotalCost = true;
         this.totalOrderCost = 0;
       }
+
+
+
+
+
 }

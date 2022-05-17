@@ -1,9 +1,33 @@
-<ion-header>
+<ion-header class="ion-margin-bottom">
   <ion-toolbar>
-    <ion-title>my-barbers</ion-title>
+     <ion-title> Please select a barber </ion-title>
+     <ion-button
+      slot="end"
+      size="default"
+      fill="clear"
+      shape="round"
+      strong="true"
+      routerDirection="foward"
+      (click)="addBarber()">
+       <ion-icon slot="icon-only" name="add"></ion-icon>
+     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-</ion-content>
+<ion-list>
+<ion-item detail
+*ngFor="let barber of barbers; let i = index;"
+routerDirection="forward"
+button="true"
+(click)="getSelectedBarber(i)">
+<ion-thumbnail class="ion-margin-end">
+  <ion-img [src]='barber.companyImage'>
+</ion-img>
+</ion-thumbnail>
+<ion-label>
+<h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
+<p>{{ barber.address }}</p>
+</ion-label >
+</ion-item>
+</ion-list>
