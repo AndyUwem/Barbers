@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoaderPage implements OnInit {
 
-  public item = { src: 'assets/barber-icon.png'}
-  
+  public item = { src: 'assets/barber-icon.png'};
+
   constructor() { }
 
   ngOnInit() {
