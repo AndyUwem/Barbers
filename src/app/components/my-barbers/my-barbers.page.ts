@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Barber } from 'src/app/interface/barber.interface';
 import { MyBarbersService } from './my-barbers.service';
@@ -10,12 +10,17 @@ import { MyBarbersService } from './my-barbers.service';
 })
 export class MyBarbersPage implements OnInit {
 
+  @Output() showBarberPage = new EventEmitter<boolean>();
 
   public barbers: Array<Barber>;
   public isServicesListView: boolean;
   public selectedBarber: Barber;
 
-  constructor(private barbersService: MyBarbersService, private loadingCtrl: LoadingController) { }
+
+  constructor(
+     private barbersService: MyBarbersService,
+     private loadingCtrl: LoadingController,
+     ) { }
 
   ngOnInit() {
     this.onLoadBarbers();
@@ -24,6 +29,8 @@ export class MyBarbersPage implements OnInit {
   public getSelectedBarber(index: number): void {
     this.isServicesListView = true;
     this.selectedBarber = {...this.barbers[index]};
+    this.showBarberPage.emit(false);
+    this.barbersService.setSelectedBarber(this.selectedBarber);
 }
 
 public addBarber(): void{

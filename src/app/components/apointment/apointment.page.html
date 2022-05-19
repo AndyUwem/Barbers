@@ -7,13 +7,12 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ng-container *ngIf="!isServicesListView; else servicesListView">
-    <app-my-barbers></app-my-barbers>
+  <ng-container *ngIf="isSelectBabrberView; else bookingView">
+    <app-my-barbers (showBarberPage)="onShowBarberPage($event)"></app-my-barbers>
 </ng-container>
 </ion-content>
 
-
-<ng-template #servicesListView>
+<ng-template #bookingView>
   <ion-grid>
     <ion-row *ngFor="let apointmentListItem of apointmentListItems; let i = index;">
     <ion-col size="12" size-sm="12">

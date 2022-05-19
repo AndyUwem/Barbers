@@ -8,6 +8,7 @@ import { ApointmentListOptions } from 'src/app/interface/apointmen-list-options.
 import { ApointmentListViewComponent } from './apointment-list-view/apointment-list-view.component';
 import { Barber } from 'src/app/interface/barber.interface';
 import { Router } from '@angular/router';
+import { MyBarbersService } from '../my-barbers/my-barbers.service';
 
 @Component({
   selector: 'app-apointment',
@@ -16,13 +17,14 @@ import { Router } from '@angular/router';
 })
 export class ApointmentPage implements OnInit {
 
+  public selectedBarber: Barber;
+
   public todaysDate: Date = new Date();
   public apointmentOrderColection = new Map();
 
   public apointmentListItems: Array<ApointmentListOptions>;
-  public selectedBarber: Barber;
   public backButtonUrl: string;
-  public isServicesListView: boolean;
+  public isSelectBabrberView: boolean;
 
   public isCalculateTotalCost = true;
   public totalOrderCost = 0;
@@ -30,6 +32,7 @@ export class ApointmentPage implements OnInit {
   constructor(
     private navigationPanelService: NavigationPanelService,
     private apointmentService: ApointmentService,
+    private myBarberService: MyBarbersService,
     private modalCtrl: ModalController,
     private loadingCtr: LoadingController,
     private router: Router
@@ -77,11 +80,16 @@ export class ApointmentPage implements OnInit {
           this.router.navigateByUrl(this.navigationPanelService.backToHomeUrl);
   }
 
+  public onShowBarberPage(emitedData: boolean): void{
+          this.isSelectBabrberView = emitedData;
+          this.myBarberService.getSelectedBarber()
+          .subscribe((barber: Barber) => this.selectedBarber = barber);
+  }
 
   private onPageLoad(): void {
     this.backButtonUrl = this.navigationPanelService.backToHomeUrl;
     this.apointmentListItems =  [...this.apointmentService.getApointmentListItems];
-    this.isServicesListView = false;
+    this.isSelectBabrberView = true;
       }
 
     private populateNewApointmentList(listIndex: number, item: any): void{

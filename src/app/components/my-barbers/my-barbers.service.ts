@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { Barber } from 'src/app/interface/barber.interface';
@@ -12,14 +12,14 @@ import { environment } from 'src/environments/environment';
 
 export class MyBarbersService{
 
+  private barberObservable = new Subject<Barber>();
 
      constructor(private http: HttpClient){}
 
 
      public addNewBarber(barber: Barber): Observable<any>{
       return this.http.post(`${environment.apiUrl}/barbers/.json`, {...barber, id: null });
-  }
-
+    }
 
   public getAllBarbers(): Observable<Barber[]> {
      return this.http.get<{[key: string]: Barber[]}>(environment.apiUrl+'barbers.json')
@@ -31,7 +31,7 @@ export class MyBarbersService{
                         companyName: data[key].companyName,
                         companyImage: data[key].companyImage,
                         cliper: data[key].cliper,
-                        hairStyle: data[key].hairstyle,
+                        hairStyle: data[key].hairStyle,
                         hairServiceType: data[key].hairServiceType,
                         hairDieColors: data[key].hairDieColors,
                         hairTreatmentOptions: data[key].hairTreatmentOptions,
@@ -51,5 +51,14 @@ export class MyBarbersService{
             }),
             tap((barber: Barber[]) => barber));
   }
+
+   public setSelectedBarber(barber: Barber): void {
+        this.barberObservable.next(barber);
+   }
+
+   public getSelectedBarber(): Observable<Barber> {
+        return this.barberObservable.asObservable();
+  }
+
 
 }
