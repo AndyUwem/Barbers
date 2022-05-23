@@ -1,31 +1,39 @@
-<ion-header class="ion-margin-bottom">
-  <ion-toolbar>
+<ng-container *ngIf='isCalledFromBarbersPage'>
+  <ion-header class="ion-margin-bottom">
+    <ion-toolbar>
      <ion-title> Please select a barber </ion-title>
      <ion-button
-      slot="end"
+     slot="end"
       size="default"
       fill="clear"
       shape="round"
       strong="true"
       routerDirection="foward"
       (click)="addBarber()">
-       <ion-icon slot="icon-only" name="add"></ion-icon>
+      <ion-icon slot="icon-only" name="add"></ion-icon>
      </ion-button>
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
-<ion-list>
-<ion-item detail
+<ion-content>
+
+</ion-content>
+</ng-container>
+
+<ng-container *ngIf='!isCalledFromBarbersPage'>  
+  <ion-list>
+ <ion-item detail
 *ngFor="let barber of barbers; let i = index;"
 button="true"
 (click)="getSelectedBarber(i)">
 <ion-thumbnail class="ion-margin-end">
   <ion-img [src]='barber.companyImage'>
-</ion-img>
+  </ion-img>
 </ion-thumbnail>
 <ion-label>
-<h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
-<p>{{ barber.address }}</p>
+  <h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
+  <p>{{ barber.address }}</p>
 </ion-label >
 </ion-item>
 </ion-list>
+</ng-container>

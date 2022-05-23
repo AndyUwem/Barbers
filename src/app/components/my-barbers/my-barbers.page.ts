@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, DoCheck, OnDestroy } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Barber } from 'src/app/interface/barber.interface';
 import { MyBarbersService } from './my-barbers.service';
@@ -8,26 +8,37 @@ import { MyBarbersService } from './my-barbers.service';
   templateUrl: './my-barbers.page.html',
   styleUrls: ['./my-barbers.page.scss'],
 })
-export class MyBarbersPage implements OnInit {
+export class MyBarbersPage implements OnInit, DoCheck, OnDestroy {
 
   @Output() showBarberPage = new EventEmitter<boolean>();
 
   public barbers: Array<Barber>;
-  public isServicesListView: boolean;
   public selectedBarber: Barber;
-
+  
+  @Input() isUsedAsChild: boolean;
+  public isCalledFromBarbersPage =  true;
 
   constructor(
      private barbersService: MyBarbersService,
      private loadingCtrl: LoadingController,
      ) { }
 
+
+    ngDoCheck(){
+     if(this.isUsedAsChild)
+        this.isCalledFromBarbersPage = false;
+
+        else
+        this.isCalledFromBarbersPage = true;
+    }
+
+
   ngOnInit() {
     this.onLoadBarbers();
   }
 
   public getSelectedBarber(index: number): void {
-    this.isServicesListView = true;
+    // this.isServicesListView = true;
     this.selectedBarber = {...this.barbers[index]};
     this.showBarberPage.emit(false);
     this.barbersService.setSelectedBarber(this.selectedBarber);
@@ -62,7 +73,9 @@ private loadingBarbersIndicator(){
   });
 }
 
-
+ngOnDestroy(){
+  console.log('my barbers componet has been destroyed!');
+}
 // private newBarberObject(): Barber{
 //   return {
 //     id: '0',
