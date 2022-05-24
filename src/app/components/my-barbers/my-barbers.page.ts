@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, DoCheck, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { Barber } from 'src/app/interface/barber.interface';
+import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
 import { MyBarbersService } from './my-barbers.service';
 
 @Component({
@@ -8,29 +9,23 @@ import { MyBarbersService } from './my-barbers.service';
   templateUrl: './my-barbers.page.html',
   styleUrls: ['./my-barbers.page.scss'],
 })
-export class MyBarbersPage implements OnInit, DoCheck, OnDestroy {
+export class MyBarbersPage implements OnInit, OnDestroy {
 
   @Output() showBarberPage = new EventEmitter<boolean>();
+  @Input() isUsedAsChild: boolean;
 
   public barbers: Array<Barber>;
   public selectedBarber: Barber;
   
-  @Input() isUsedAsChild: boolean;
-  public isCalledFromBarbersPage =  true;
+  public shouldShowContentsItems =  true;
+  public backButtonUrl: string;
 
   constructor(
      private barbersService: MyBarbersService,
      private loadingCtrl: LoadingController,
+     private navigationPanelService: NavigationPanelService
      ) { }
 
-
-    ngDoCheck(){
-     if(this.isUsedAsChild)
-        this.isCalledFromBarbersPage = false;
-
-        else
-        this.isCalledFromBarbersPage = true;
-    }
 
 
   ngOnInit() {
@@ -38,7 +33,6 @@ export class MyBarbersPage implements OnInit, DoCheck, OnDestroy {
   }
 
   public getSelectedBarber(index: number): void {
-    // this.isServicesListView = true;
     this.selectedBarber = {...this.barbers[index]};
     this.showBarberPage.emit(false);
     this.barbersService.setSelectedBarber(this.selectedBarber);
@@ -50,6 +44,7 @@ public addBarber(): void{
 }
 
 private onLoadBarbers(): void{
+  this.backButtonUrl = this.navigationPanelService.backToHomeUrl;
   this.loadingBarbersIndicator()
   .then((loader: HTMLIonLoadingElement) => {
     loader.present();
@@ -74,7 +69,7 @@ private loadingBarbersIndicator(){
 }
 
 ngOnDestroy(){
-  console.log('my barbers componet has been destroyed!');
+  this.isUsedAsChild = false;
 }
 // private newBarberObject(): Barber{
 //   return {

@@ -1,7 +1,8 @@
-<ng-container *ngIf='isCalledFromBarbersPage'>
+<ng-container *ngIf='!isUsedAsChild'>
   <ion-header class="ion-margin-bottom">
     <ion-toolbar>
-     <ion-title> Please select a barber </ion-title>
+      <app-back-button [url]="backButtonUrl" slot="start"></app-back-button>
+     <ion-title> Your Barbers List </ion-title>
      <ion-button
      slot="end"
       size="default"
@@ -15,25 +16,30 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content *ngIf='isUsedAsChild; else contentItems'>
 </ion-content>
 </ng-container>
 
-<ng-container *ngIf='!isCalledFromBarbersPage'>  
-  <ion-list>
- <ion-item detail
-*ngFor="let barber of barbers; let i = index;"
-button="true"
-(click)="getSelectedBarber(i)">
-<ion-thumbnail class="ion-margin-end">
-  <ion-img [src]='barber.companyImage'>
-  </ion-img>
-</ion-thumbnail>
-<ion-label>
-  <h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
-  <p>{{ barber.address }}</p>
-</ion-label >
-</ion-item>
-</ion-list>
+<ng-container *ngIf='!isUsedAsChild; else contentItems'>
 </ng-container>
+
+
+<ng-template #contentItems>
+  <ion-content>
+    <ion-list>
+    <ion-item detail
+    *ngFor="let barber of barbers; let i = index;"
+    button="true"
+    (click)="getSelectedBarber(i)">
+    <ion-thumbnail class="ion-margin-end">
+      <ion-img [src]='barber.companyImage'>
+      </ion-img>
+    </ion-thumbnail>
+    <ion-label>
+      <h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
+      <p>{{ barber.address }}</p>
+    </ion-label >
+  </ion-item>
+</ion-list>
+</ion-content>
+</ng-template>
