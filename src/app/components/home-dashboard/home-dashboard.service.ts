@@ -15,11 +15,6 @@ export class HomeDashboardService {
          title: 'Book appointment',
          subTitle: 'Schedule a new barbing session.'
       },
-      {
-        tab: '/add-barber', iconName: 'person-add',
-        title: 'Add new barber',
-        subTitle: 'Add a new barber to your collection of barbers.'
-     },
      {
       tab: '/my-barbers', iconName: 'globe',
       title: 'My barbers',
