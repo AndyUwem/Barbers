@@ -18,15 +18,15 @@ import { MyBarbersService } from '../my-barbers/my-barbers.service';
 export class ApointmentPage implements OnInit {
 
   public selectedBarber: Barber;
-
   public todaysDate: Date = new Date();
   public apointmentOrderColection = new Map();
 
   public apointmentListItems: Array<ApointmentListOptions>;
   public backButtonUrl: string;
-  public isSelectBabrberView: boolean;
 
+  public isSelectBabrberView: boolean;
   public isCalculateTotalCost = true;
+  public hasChildComponent =  true;
   public totalOrderCost = 0;
 
   constructor(

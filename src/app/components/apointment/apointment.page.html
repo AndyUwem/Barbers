@@ -8,7 +8,7 @@
 
 <ion-content class="ion-padding">
   <ng-container *ngIf="isSelectBabrberView; else bookingView">
-    <app-my-barbers (showBarberPage)="onShowBarberPage($event)"></app-my-barbers>
+    <app-my-barbers [isUsedAsChild]='hasChildComponent' (showBarberPage)="onShowBarberPage($event)"></app-my-barbers>
 </ng-container>
 </ion-content>
 
