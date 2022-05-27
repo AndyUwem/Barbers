@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title slot="start"><app-back-button [url]="backButtonUrl"></app-back-button></ion-title>
+    <app-back-button slot="start" [url]="backButtonUrl"></app-back-button>
     <ion-title>Link a barber</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -26,12 +26,12 @@
   </ion-item>
 </ion-list>
 
-<div>
+<div *ngIf="!isBarberValid; else dataFound">
   <p>{{searchTitle}}</p>
 </div>
 </ion-content>
 
 
 <ng-template #dataFound>
-
+<p>data was found</p>
 </ng-template>

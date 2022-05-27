@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Barber } from 'src/app/interface/barber.interface';
 import { LoaderService } from '../loader/loader.service';
 import { MyBarbersService } from '../my-barbers/my-barbers.service';
 
@@ -11,11 +12,16 @@ import { MyBarbersService } from '../my-barbers/my-barbers.service';
 export class AddBarberPage implements OnInit {
 
   public refCodeForm: FormGroup;
+  public filteredBarber: Barber;
   public backButtonUrl: string;
 
   public searchTitle = 'Find a barber';
+  public isBarberValid = false;
 
-  constructor(private loaderService: LoaderService, private barberService: MyBarbersService) { }
+  constructor(
+    private loaderService: LoaderService,
+    private barberService: MyBarbersService
+    ) { }
 
   ngOnInit() {
     this.onPageLoad();
@@ -27,13 +33,21 @@ export class AddBarberPage implements OnInit {
       .then((spinner: HTMLIonLoadingElement) => {
         spinner.present();
 
-      this.barberService.findBarberById('-N2ESDSME7HTvk-kayqF')
+        const refId: string = this.refCodeForm.get('referenceCode').value;
+      this.barberService
+      .findBarberById(refId.trim())
       .subscribe({
-        next: (responseData: any) => {
+        next: (responseData: Barber) => {
+          if(responseData){
+            this.filteredBarber = responseData;
+            this.isBarberValid = true;
+          }
 
-          const results = responseData ? console.log(responseData) : console.log('no data found!');
+          else{
+            this.searchTitle = 'no data found!';
+            this.isBarberValid = false;
+          }
           spinner.dismiss();
-
         },
         error: () => {
           console.log('something went wrong');
