@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { Barber } from 'src/app/interface/barber.interface';
+import { LoaderService } from '../loader/loader.service';
 import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
 import { MyBarbersService } from './my-barbers.service';
 
@@ -16,14 +18,14 @@ export class MyBarbersPage implements OnInit, OnDestroy {
 
   public barbers: Array<Barber>;
   public selectedBarber: Barber;
-  
   public shouldShowContentsItems =  true;
   public backButtonUrl: string;
 
   constructor(
      private barbersService: MyBarbersService,
-     private loadingCtrl: LoadingController,
-     private navigationPanelService: NavigationPanelService
+     private loaderService: LoaderService,
+     private navigationPanelService: NavigationPanelService,
+     private router: Router
      ) { }
 
 
@@ -38,39 +40,33 @@ export class MyBarbersPage implements OnInit, OnDestroy {
     this.barbersService.setSelectedBarber(this.selectedBarber);
 }
 
-public addBarber(): void{
-  // this.barbersService.addNewBarber(this.newBarberObject())
-  // .subscribe((responseData: string) => console.log(responseData));
+public navigateToAddBarberPage(): void{
+ this.router.navigate(['/add-barber']);
 }
+ngOnDestroy(){
+  this.isUsedAsChild = false;
+}
+
 
 private onLoadBarbers(): void{
   this.backButtonUrl = this.navigationPanelService.backToHomeUrl;
-  this.loadingBarbersIndicator()
-  .then((loader: HTMLIonLoadingElement) => {
-    loader.present();
+  this.loaderService.load()
+  .then((spinner: HTMLIonLoadingElement) => {
+    spinner.present();
 
-    this.barbersService.getAllBarbers()
+    this.barbersService.fetchAllBarbers()
     .subscribe((responseData: Barber[]) => {
       this.barbers = [...responseData];
-      loader.dismiss();
+      spinner.dismiss();
     });
   });
 
 
 }
 
-private loadingBarbersIndicator(){
-  return this.loadingCtrl.create({
-    animated: true,
-    spinner: 'dots',
-    keyboardClose: true,
-    message: 'loading please wait...'
-  });
-}
 
-ngOnDestroy(){
-  this.isUsedAsChild = false;
-}
+
+
 // private newBarberObject(): Barber{
 //   return {
 //     id: '0',

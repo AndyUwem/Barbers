@@ -1,9 +1,37 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title><app-back-button [url]="back_button_url"></app-back-button></ion-title>
+    <ion-title slot="start"><app-back-button [url]="backButtonUrl"></app-back-button></ion-title>
+    <ion-title>Link a barber</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+<ion-list>
+  <ion-item>
+    <form [formGroup]="refCodeForm">
+      <ion-label position="floating">
+        <ion-text>Enter Ref. code</ion-text>
+      </ion-label>
+      <ion-input type="text" formControlName="referenceCode"></ion-input>
+    </form>
+  </ion-item>
 
+  <ion-item>
+  <ion-button
+  color="success"
+  size="small"
+  (click)="linkBarber()">
+    Link
+  </ion-button>
+  </ion-item>
+</ion-list>
+
+<div>
+  <p>{{searchTitle}}</p>
+</div>
 </ion-content>
+
+
+<ng-template #dataFound>
+
+</ng-template>
