@@ -39,6 +39,7 @@ export class AddBarberPage implements OnInit {
       .subscribe({
         next: (responseData: Barber) => {
           if(responseData){
+            console.log(responseData);
             this.filteredBarber = responseData;
             this.isBarberValid = true;
           }

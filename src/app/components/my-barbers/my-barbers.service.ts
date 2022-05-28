@@ -64,7 +64,8 @@ export class MyBarbersService{
           email: responseData[key].email,
           address: responseData[key].address,
           gender: responseData[key].gender,
-          phone: responseData[key].phone
+          phone: responseData[key].phone,
+          age: responseData[key].age
         });
       }
     }

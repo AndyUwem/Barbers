@@ -55,9 +55,15 @@ private onLoadBarbers(): void{
     spinner.present();
 
     this.barbersService.fetchAllBarbers()
-    .subscribe((responseData: Barber[]) => {
-      this.barbers = [...responseData];
-      spinner.dismiss();
+    .subscribe({
+      next: (responseData: Barber[]) => {
+        this.barbers = [...responseData];
+        spinner.dismiss();
+      },
+      error: () => {
+        console.log('something went wrong');
+        spinner.dismiss();
+      }
     });
   });
 
