@@ -33,7 +33,7 @@ export class AddBarberPage implements OnInit {
       .then((spinner: HTMLIonLoadingElement) => {
         spinner.present();
 
-        const refId: string = this.refCodeForm.get('referenceCode').value;
+      const refId: string = this.refCodeForm.get('referenceCode').value;
       this.barberService
       .findBarberById(refId.trim())
       .subscribe({
@@ -51,8 +51,14 @@ export class AddBarberPage implements OnInit {
           spinner.dismiss();
         },
         error: () => {
-          console.log('something went wrong');
-          spinner.dismiss();
+          this.loaderService.showToast(
+            'Connection Error',
+             'Please check your internet connection',
+             'bottom'
+             ).then((toast: HTMLIonToastElement) =>{
+               toast.present();
+             });
+           spinner.dismiss();
         }
       });
       });

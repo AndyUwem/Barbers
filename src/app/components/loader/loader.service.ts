@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,10 @@ import { LoadingController } from '@ionic/angular';
 
 export class LoaderService{
 
- constructor(private loadingCtrl: LoadingController){}
+ constructor(
+   private loadingCtrl: LoadingController,
+   private toastCtrl: ToastController
+   ){}
 
  public load(): Promise<HTMLIonLoadingElement>{
   return this.loadingCtrl.create({
@@ -20,4 +23,18 @@ export class LoaderService{
    });
  }
 
+
+ public showToast(header: string, message: string, position: 'top' | 'bottom' | 'middle'):
+  Promise<HTMLIonToastElement>{
+  return this.toastCtrl.create({
+     header,
+     message,
+     position,
+     duration: 3000,
+     keyboardClose: true,
+     mode: 'ios',
+     color: 'danger',
+     icon: 'information-circle'
+   });
+}
 }
