@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 import { Barber } from 'src/app/interface/barber.interface';
+import { AddBarberPage } from '../add-barber/add-barber.page';
 import { LoaderService } from '../loader/loader.service';
 import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
 import { MyBarbersService } from './my-barbers.service';
@@ -16,6 +18,7 @@ export class MyBarbersPage implements OnInit, OnDestroy {
   @Output() showBarberPage = new EventEmitter<boolean>();
   @Input() isUsedAsChild: boolean;
 
+  dataFromModal: string;
   public barbers: Array<Barber>;
   public selectedBarber: Barber;
   public shouldShowContentsItems =  true;
@@ -24,8 +27,8 @@ export class MyBarbersPage implements OnInit, OnDestroy {
   constructor(
      private barbersService: MyBarbersService,
      private loaderService: LoaderService,
+     private modalCtrl: ModalController,
      private navigationPanelService: NavigationPanelService,
-     private router: Router
      ) { }
 
 
@@ -40,9 +43,27 @@ export class MyBarbersPage implements OnInit, OnDestroy {
     this.barbersService.setSelectedBarber(this.selectedBarber);
 }
 
-public navigateToAddBarberPage(): void{
- this.router.navigate(['/add-barber']);
+public  navigateToAddBarberPage(): void{
+ this.modalCtrl.create({
+    component: AddBarberPage,
+    componentProps: { myListOfBarbers: this.barbers },
+    showBackdrop: false,
+    swipeToClose: false
+})
+.then((addBarberModal: HTMLIonModalElement) => {
+        addBarberModal.present();
+        return addBarberModal.onDidDismiss();
+})
+.then(( returnedObject: {data: any; role: string}) =>{
+   const {text} = returnedObject.data;
+
+   console.log(text);
+});
+
+
 }
+
+
 ngOnDestroy(){
   this.isUsedAsChild = false;
 }
@@ -54,7 +75,7 @@ private onLoadBarbers(): void{
   .then((spinner: HTMLIonLoadingElement) => {
     spinner.present();
 
-    this.barbersService.fetchAllBarbers()
+    this.barbersService.fetchAllBarbers
     .subscribe({
       next: (responseData: Barber[]) => {
         this.barbers = [...responseData];
