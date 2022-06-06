@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoadingController, ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Barber } from 'src/app/interface/barber.interface';
 import { AddBarberPage } from '../add-barber/add-barber.page';
 import { LoaderService } from '../loader/loader.service';
@@ -13,7 +11,7 @@ import { MyBarbersService } from './my-barbers.service';
   templateUrl: './my-barbers.page.html',
   styleUrls: ['./my-barbers.page.scss'],
 })
-export class MyBarbersPage implements OnInit, OnDestroy {
+export class MyBarbersPage implements OnInit {
 
   @Output() showBarberPage = new EventEmitter<boolean>();
   @Input() isUsedAsChild: boolean;
@@ -27,8 +25,8 @@ export class MyBarbersPage implements OnInit, OnDestroy {
   constructor(
      private barbersService: MyBarbersService,
      private loaderService: LoaderService,
-     private modalCtrl: ModalController,
      private navigationPanelService: NavigationPanelService,
+     private modalCtrl: ModalController
      ) { }
 
 
@@ -43,7 +41,7 @@ export class MyBarbersPage implements OnInit, OnDestroy {
     this.barbersService.setSelectedBarber(this.selectedBarber);
 }
 
-public  navigateToAddBarberPage(): void{
+public navigateToAddBarberPage(): void{
  this.modalCtrl.create({
     component: AddBarberPage,
     componentProps: { myListOfBarbers: this.barbers },
@@ -54,20 +52,30 @@ public  navigateToAddBarberPage(): void{
         addBarberModal.present();
         return addBarberModal.onDidDismiss();
 })
-.then(( returnedObject: {data: any; role: string}) =>{
-   const {text} = returnedObject.data;
+.then(( returnedObject: {data: Barber; role: string}) =>{
+   const barber = returnedObject.data;
+   let isBarberExist: boolean;
 
-   console.log(text);
+   for(const $barber in this.barbers){
+      if(this.barbers[$barber].id === barber.id){
+        isBarberExist = true;
+         this.showItemExistToast('Duplicates Found!','This barber already exist!!');
+         return;
+      }
+   }
+
+   if(!isBarberExist){
+      this.barbers.push(barber);
+      isBarberExist = false;
+      this.showItemExistToast('Linking Successful!','Barber was added to your list');
+      }
 });
 
-
 }
 
-
-ngOnDestroy(){
+ionViewWillLeave(){
   this.isUsedAsChild = false;
 }
-
 
 private onLoadBarbers(): void{
   this.backButtonUrl = this.navigationPanelService.backToHomeUrl;
@@ -75,7 +83,7 @@ private onLoadBarbers(): void{
   .then((spinner: HTMLIonLoadingElement) => {
     spinner.present();
 
-    this.barbersService.fetchAllBarbers
+    this.barbersService.fetchMyBarbers
     .subscribe({
       next: (responseData: Barber[]) => {
         this.barbers = [...responseData];
@@ -87,10 +95,12 @@ private onLoadBarbers(): void{
       }
     });
   });
-
-
 }
 
+private showItemExistToast(header: string, massage: string): void{
+  this.loaderService
+  .showToast(header, massage, 'bottom', 'dark');
+}
 
 
 

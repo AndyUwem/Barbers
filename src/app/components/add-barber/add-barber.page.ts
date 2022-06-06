@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Barber } from 'src/app/interface/barber.interface';
+import { LoaderService } from '../loader/loader.service';
 import { MyBarbersService } from '../my-barbers/my-barbers.service';
 
 @Component({
@@ -11,7 +12,6 @@ import { MyBarbersService } from '../my-barbers/my-barbers.service';
 })
 export class AddBarberPage implements OnInit {
 
-  @Input() myListOfBarbers: Array<Barber>;
 
   public refCodeForm: FormGroup;
   public filteredBarber: Barber;
@@ -20,8 +20,9 @@ export class AddBarberPage implements OnInit {
   public searchTitle = 'Find a barber';
 
   constructor(
+    private modalCtrl: ModalController,
     private barberService: MyBarbersService,
-    private modalCtrl: ModalController
+    private loaderService: LoaderService
     ) { }
 
   ngOnInit() {
@@ -30,31 +31,41 @@ export class AddBarberPage implements OnInit {
   }
 
   ionViewWillEnter(){
-   console.log(this.myListOfBarbers);
+
   }
 
   public linkWithBarber(): void {
-      this.modalCtrl.dismiss({ text: 'hello modal data returned'},
-      'cancel'
+      this.modalCtrl.dismiss(this.filteredBarber,
+      'success'
       );
   }
 
   public searchBarber(): void{
+        this.loaderService.load().then((spinner: HTMLIonLoadingElement) => {
+                spinner.present();
 
-        const refId: string = this.refCodeForm.get('referenceCode').value;
-        const filteredBarber = this
-            .myListOfBarbers
-            .find((barber: Barber) => barber.id === refId.trim());
-
-            if(filteredBarber){
-                  this.filteredBarber = filteredBarber;
-                  this.searchTitle = 'barber was found';
-                  this.isBarberValid = true;
-               }
-                else {
-                  this.searchTitle = 'barber not found';
-                  this.isBarberValid = false;
-                }
+          const refId: string = this.refCodeForm.get('referenceCode').value;
+          this.barberService.findBarberById(refId)
+              .subscribe({
+                  next: (filteredBarber: Barber) => {
+                      if(filteredBarber){
+                      this.filteredBarber = filteredBarber;
+                      this.searchTitle = 'barber was found';
+                      this.isBarberValid = true;
+                      spinner.dismiss();
+                    }
+                    else {
+                      this.searchTitle = 'barber not found';
+                      this.isBarberValid = false;
+                      spinner.dismiss();
+                    }
+                  },
+                  error: () => {
+                    console.log('something went wrong..');
+                    spinner.dismiss();
+                  }
+              });
+        });
   }
 
   private initializeRefCodeForm(): void{

@@ -16,7 +16,7 @@ export class MyBarbersService{
 
      constructor(private http: HttpClient){}
 
-     public get fetchAllBarbers(): Observable<Barber[]> {
+     public get fetchMyBarbers(): Observable<Barber[]> {
       return this.http.get<{[key: string]: Barber[]}>(`${environment.apiUrl}barbers.json`)
              .pipe(map((responseData: {[key: string]: Barber[]}) => this.getBarberObjects(responseData)),
              tap((barber: Barber[]) => barber));
@@ -29,7 +29,7 @@ export class MyBarbersService{
 
 
   public findBarberById(id: string): Observable<Barber>{
-       return this.http.get<Barber>(`${environment.apiUrl}barbers.json?orderBy="id"&equalTo="${id}"`)
+       return this.http.get<Barber>(`${environment.apiUrl}barbers/list-of-barbers.json?orderBy="id"&equalTo="${id}"`)
         .pipe(map((responseData: Barber) => this.getBarberObjects(responseData)[0]
         ),
         tap(baber => baber));

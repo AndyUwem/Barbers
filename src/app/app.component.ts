@@ -23,9 +23,11 @@ export class AppComponent implements OnInit{
           else{
             this.isLoading = true;
             this.loaderService.showToast(
+              'Connection Error!',
               'Internet connection was lost!',
-              'top'
-            ).then((toast: HTMLIonToastElement) => toast.present());
+              'top',
+              'danger'
+            );
           }
         }, 2000);
   }
