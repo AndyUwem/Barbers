@@ -8,6 +8,8 @@ import { MyBarbersPageRoutingModule } from './my-barbers-routing.module';
 
 import { MyBarbersPage } from './my-barbers.page';
 import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button.module';
+import { AddBarberPage } from '../add-barber/add-barber.page';
+import { AddBarberPageModule } from '../add-barber/add-barber.module';
 
 @NgModule({
   imports: [
@@ -15,9 +17,11 @@ import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button
     FormsModule,
     IonicModule,
     MyBarbersPageRoutingModule,
-    BackButtonPageModule
+    BackButtonPageModule,
+    AddBarberPageModule
   ],
   declarations: [MyBarbersPage],
-  exports: [MyBarbersPage]
+  exports: [MyBarbersPage],
+  entryComponents: [AddBarberPage]
 })
 export class MyBarbersPageModule {}

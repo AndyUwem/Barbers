@@ -24,10 +24,10 @@ export class LoaderService{
  }
 
 
- public showToast(header: string, message: string, position: 'top' | 'bottom' | 'middle'):
+ public showToast(message: string, position: 'top' | 'bottom' | 'middle'):
   Promise<HTMLIonToastElement>{
   return this.toastCtrl.create({
-     header,
+     header: 'Connection Error',
      message,
      position,
      duration: 3000,

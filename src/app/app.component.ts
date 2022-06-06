@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from './components/loader/loader.service';
 @Component({
   selector: 'app-root',
 templateUrl: 'app.component.html',
@@ -6,16 +7,27 @@ templateUrl: 'app.component.html',
 })
 export class AppComponent implements OnInit{
 
-   public isLoading: boolean = true;
+  public isLoading = true;
 
-  constructor() {}
+  constructor(private loaderService: LoaderService) {}
 
-  ngOnInit() {  
+  ngOnInit() {
      this.loadApplication();
   }
 
   private loadApplication() {
-        setTimeout(() => this.isLoading = false, 2000);
+        setTimeout(() => {
+          if(navigator.onLine){
+            this.isLoading = false;
+          }
+          else{
+            this.isLoading = true;
+            this.loaderService.showToast(
+              'Internet connection was lost!',
+              'top'
+            ).then((toast: HTMLIonToastElement) => toast.present());
+          }
+        }, 2000);
   }
 
 

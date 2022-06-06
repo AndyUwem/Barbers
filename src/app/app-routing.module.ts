@@ -31,13 +31,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'add-barber',
-    loadChildren: () =>
-      import('./components/add-barber/add-barber.module').then(
-        (m) => m.AddBarberPageModule
-      ),
-  },
-  {
     path: 'my-history',
     loadChildren: () =>
       import('./components/my-history/my-history.module').then(

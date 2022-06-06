@@ -16,16 +16,17 @@ export class MyBarbersService{
 
      constructor(private http: HttpClient){}
 
+     public get fetchAllBarbers(): Observable<Barber[]> {
+      return this.http.get<{[key: string]: Barber[]}>(`${environment.apiUrl}barbers.json`)
+             .pipe(map((responseData: {[key: string]: Barber[]}) => this.getBarberObjects(responseData)),
+             tap((barber: Barber[]) => barber));
+   }
 
      public addNewBarber(barber: Barber): Observable<any>{
       return this.http.post(`${environment.apiUrl}barbers.json`, {...barber, id: null });
     }
 
-  public fetchAllBarbers(): Observable<Barber[]> {
-     return this.http.get<{[key: string]: Barber[]}>(`${environment.apiUrl}barbers.json`)
-            .pipe(map((responseData: any) => this.getBarberObjects(responseData)),
-            tap((barber: Barber[]) => barber));
-  }
+
 
   public findBarberById(id: string): Observable<Barber>{
        return this.http.get<Barber>(`${environment.apiUrl}barbers.json?orderBy="id"&equalTo="${id}"`)
@@ -39,7 +40,7 @@ export class MyBarbersService{
         this.barberObservable.next(barber);
    }
 
-   public getSelectedBarber(): Observable<Barber> {
+   public getSelectedBarber(): Observable<Barber| Array<Barber>> {
         return this.barberObservable.asObservable();
   }
 
