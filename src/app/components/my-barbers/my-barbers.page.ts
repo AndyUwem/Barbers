@@ -53,6 +53,10 @@ public navigateToAddBarberPage(): void{
         return addBarberModal.onDidDismiss();
 })
 .then(( returnedObject: {data: Barber; role: string}) =>{
+  if(returnedObject.role !== 'success'){
+    return;
+   }
+
    const barber = returnedObject.data;
    let isBarberExist: boolean;
 
@@ -86,7 +90,9 @@ private onLoadBarbers(): void{
     this.barbersService.fetchMyBarbers
     .subscribe({
       next: (responseData: Barber[]) => {
-        this.barbers = [...responseData];
+        if(responseData !== null){
+          this.barbers = [...responseData];
+        }
         spinner.dismiss();
       },
       error: () => {

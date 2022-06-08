@@ -30,9 +30,19 @@ export class AddBarberPage implements OnInit {
     this.initializeRefCodeForm();
   }
 
-  ionViewWillEnter(){
 
+  public cancelBarberSearch(): void{
+    this.modalCtrl.dismiss(null,
+      'cancel'
+      );
   }
+
+
+  public cancelBarberSearchResult(): void{
+      this.isBarberValid = false;
+      this.searchTitle = 'Find a barber';
+  }
+
 
   public linkWithBarber(): void {
       this.modalCtrl.dismiss(this.filteredBarber,
@@ -61,8 +71,9 @@ export class AddBarberPage implements OnInit {
                     }
                   },
                   error: () => {
-                    console.log('something went wrong..');
-                    spinner.dismiss();
+                    this.loaderService
+                        .showToast('Connection Erro!', 'You\'re not connected to the internet', 'bottom', 'danger');
+                        spinner.dismiss();
                   }
               });
         });
