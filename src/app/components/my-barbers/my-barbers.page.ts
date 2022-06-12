@@ -87,7 +87,7 @@ private onLoadBarbers(): void{
   .then((spinner: HTMLIonLoadingElement) => {
     spinner.present();
 
-    this.barbersService.fetchMyBarbers
+    this.barbersService.fetchMyBarbers(8287272)
     .subscribe({
       next: (responseData: Barber[]) => {
         if(responseData !== null){

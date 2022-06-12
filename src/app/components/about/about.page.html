@@ -1,9 +1,109 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>about</ion-title>
+    <ion-title>Accounts</ion-title>
+    <ion-button
+    color="dark"
+    size="large"
+    slot="end"
+    fill="clear"
+    >
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<form [formGroup]="newCustomerForm" (ngSubmit)="onSubmit()">
+  <ion-card-header>
+    <h4>Your Information</h4>
+  </ion-card-header>
 
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" >
+          <ion-item>
+           <ion-label position="floating">First Name</ion-label>
+           <ion-input formControlName="firstName" type="text" clearInput ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+         <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input formControlName="lastName" type="text" clearInput></ion-input>
+         </ion-item>
+       </ion-col>
+      </ion-row>
+
+      <ion-row>
+       <ion-col size="4">
+         <ion-item>
+          <ion-label position="floating">Gender</ion-label>
+          <ion-select formControlName="gender" [value]="gender[0]">
+            <ion-select-option *ngFor="let g of gender" [value]="g">{{g}}</ion-select-option>
+          </ion-select>
+         </ion-item>
+       </ion-col>
+       <ion-col size="3">
+         <ion-item>
+          <ion-label position="floating">Age</ion-label>
+          <ion-input formControlName="age" type="number"></ion-input>
+         </ion-item>
+       </ion-col>
+       <ion-col size="5">
+        <ion-item>
+         <ion-label position="floating">Phone</ion-label>
+         <ion-input formControlName="phone" type="number" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+     </ion-row>
+
+     <ion-row>
+       <ion-col size="12">
+         <ion-item>
+          <ion-label position="floating">Location Address</ion-label>
+          <ion-input formControlName="address" type="text" clearInput></ion-input>
+         </ion-item>
+       </ion-col>
+     </ion-row>
+     </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      <h4>ACCOUNTS</h4>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+             <ion-label position="floating">Email</ion-label>
+             <ion-input formControlName="email" type="email" clearInput></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+             <ion-label position="floating">Password</ion-label>
+             <ion-input formControlName="password" type="password" clearInput></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button
+  color="success"
+  expand="block"
+  size="large"
+  style="margin: 5px 3%;"
+  type="submit"
+  [disabled]="!newCustomerForm.valid">
+  {{ isLoading ? 'Processing' : 'Submit'}}
+  <div class="ion-margin-start" *ngIf="isLoading">
+    <ion-spinner class="spinner" color="secondary" name="lines"></ion-spinner>
+  </div>
+</ion-button>
+</form>
 </ion-content>
