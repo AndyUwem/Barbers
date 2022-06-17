@@ -5,7 +5,7 @@
     fill="clear"
     slot="end"
     size="large"
-    (click)="cancelBarberSearch()"
+    (click)="cancelBarberSearchOperation()"
     >
       <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
     </ion-button>
@@ -27,7 +27,11 @@
              <p>Type here..</p>
             </ion-text>
           </ion-label>
-          <ion-input class="refInput ion-text-center" type="text" formControlName="referenceCode"></ion-input>
+          <ion-input
+           class="refInput ion-text-center"
+           type="number"
+           formControlName="phoneNumber"
+           ></ion-input>
         </form>
       </ion-item>
 
@@ -35,6 +39,7 @@
       class="ion-margin-top"
       color="success"
       size="normal"
+      [disabled]="refCodeForm.invalid"
       (click)="searchBarber()">
         Search
       </ion-button>
@@ -44,7 +49,7 @@
 </ion-card>
 
 <div *ngIf="!isBarberValid; else dataFound" class="ion-text-center ion-margin-top">
-  <p>{{searchTitle}}</p>
+    <img [src]="searchTitle" alt="search results">
 </div>
 </ion-content>
 

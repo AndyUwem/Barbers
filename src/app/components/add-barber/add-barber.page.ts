@@ -18,7 +18,8 @@ export class AddBarberPage implements OnInit {
   public filteredBarber: Barber;
   public backButtonUrl: string;
   public isBarberValid = false;
-  public searchTitle = 'Find a barber';
+  public barberSearchImages = ['assets/search-icon.png','assets/nodata-img.jpg'];
+  public searchTitle: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -33,16 +34,15 @@ export class AddBarberPage implements OnInit {
   }
 
 
-  public cancelBarberSearch(): void{
-    this.modalCtrl.dismiss(null,
-      'cancel'
-      );
+  public cancelBarberSearchOperation(): void{
+    this.modalCtrl.dismiss(null,'cancel');
   }
 
 
   public cancelBarberSearchResult(): void{
       this.isBarberValid = false;
-      this.searchTitle = 'Find a barber';
+      this.searchTitle = this.barberSearchImages[0];
+      this.refCodeForm.reset();
   }
 
 
@@ -59,10 +59,7 @@ export class AddBarberPage implements OnInit {
                   this.modalCtrl
                   .dismiss(barber,'success');
                 },
-                error: () => {
-                  console.log('something went wrong');
-                  spinner.dismiss();
-                }
+                error: () => this.showConnectionErrorMassage(spinner)
           });
         });
 
@@ -73,27 +70,22 @@ export class AddBarberPage implements OnInit {
         this.loaderService.load().then((spinner: HTMLIonLoadingElement) => {
              spinner.present();
 
-          const phoneId: number = this.refCodeForm.get('referenceCode').value;
-          this.barberService.findBarberByPhone(phoneId)
+          this.barberService
+              .findBarberByPhone(Number(this.refCodeForm.get('phoneNumber').value))
               .subscribe({
                   next: (filteredBarber: Barber) => {
                       if(filteredBarber){
                       this.filteredBarber = filteredBarber;
-                      this.searchTitle = 'barber was found';
                       this.isBarberValid = true;
                       spinner.dismiss();
                     }
                     else {
-                      this.searchTitle = 'barber not found';
+                      this.searchTitle = this.barberSearchImages[1];
                       this.isBarberValid = false;
                       spinner.dismiss();
                     }
                   },
-                  error: () => {
-                    this.loaderService
-                        .showToast('Connection Error!', 'You\'re not connected to the internet', 'bottom', 'danger');
-                        spinner.dismiss();
-                  }
+                  error: () => this.showConnectionErrorMassage(spinner)
               });
         });
   }
@@ -101,14 +93,19 @@ export class AddBarberPage implements OnInit {
 
   private initializeRefCodeForm(): void{
       this.refCodeForm = new FormGroup({
-       referenceCode: new FormControl('', Validators.required)
+        phoneNumber: new FormControl(null, Validators.required)
       });
   }
 
   private onPageLoad(): void {
     this.backButtonUrl = '/my-barbers';
+    this.searchTitle = this.barberSearchImages[0];
   }
 
-
+ private showConnectionErrorMassage(spinner: HTMLIonLoadingElement): void{
+  this.loaderService
+      .showToast('Connection Error!', 'You\'re not connected to the internet', 'bottom', 'danger');
+      spinner.dismiss();
+ }
 
 }

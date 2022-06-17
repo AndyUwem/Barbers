@@ -61,7 +61,7 @@ public navigateToAddBarberPage(): void{
    let isBarberExist: boolean;
 
    for(const $barber in this.barbers){
-      if(this.barbers[$barber].id === barber.id){
+      if(this.barbers[$barber].phone === barber.phone){
         isBarberExist = true;
          this.showItemExistToast('Duplicates Found!','This barber already exist!!');
          return;

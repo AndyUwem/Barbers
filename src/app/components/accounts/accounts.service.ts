@@ -22,7 +22,9 @@ export class AccountsService {
 
       addBarberToMyList(id: number, barber: Barber): Observable<Barber>{
             return this.http
-                       .patch<Barber>(`${this.usersApi}/barbers/customers/${id}/my-barbers/${barber.phone}.json`, {...barber });
+                       .patch<Barber>(
+                         `${this.usersApi}/barbers/customers/${id}/my-barbers/${barber.phone}.json`,
+                          {...barber });
       }
 
 
