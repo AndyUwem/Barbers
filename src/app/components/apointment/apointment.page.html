@@ -66,13 +66,19 @@
           </ng-container>
 
               <ng-template #bookAptRef>
-                  <ion-button (click)="bookApointment()"
-                  size="large" expand="block">
+                  <ion-button
+                  (click)="bookApointment()"
+                  size="large"
+                  color="success"
+                  expand="block">
                   Book
                 </ion-button>
 
-                <ion-button (click)="cancelApointment()"
-                size="large" expand="block" color="danger">
+                <ion-button
+                (click)="cancelApointment()"
+                size="large"
+                expand="block"
+                color="danger">
                 Cancel
               </ion-button>
               </ng-template>
