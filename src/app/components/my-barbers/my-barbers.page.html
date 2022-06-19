@@ -10,36 +10,57 @@
       shape="round"
       strong="true"
       routerDirection="foward"
-      (click)="navigateToAddBarberPage()">
+      (click)="openAddBarberModal()">
       <ion-icon slot="icon-only" name="add"></ion-icon>
      </ion-button>
     </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf='isUsedAsChild; else contentItems'>
-</ion-content>
+<ion-content *ngIf='isUsedAsChild; else contentItems'></ion-content>
 </ng-container>
 
-<ng-container *ngIf='!isUsedAsChild; else contentItems'>
-</ng-container>
+<ng-container *ngIf='!isUsedAsChild; else contentItems'></ng-container>
 
 
 <ng-template #contentItems>
   <ion-content>
-    <ion-list>
-    <ion-item detail
-    *ngFor="let barber of barbers; let i = index;"
-    button="true"
-    (click)="getSelectedBarber(i)">
-    <ion-thumbnail class="ion-margin-end">
-      <ion-img [src]='barber.companyImage'>
-      </ion-img>
-    </ion-thumbnail>
-    <ion-label>
-      <h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
-      <p>{{ barber.address }}</p>
-    </ion-label >
-  </ion-item>
-</ion-list>
+    <ion-item-sliding
+    #slidingItem
+    *ngFor="let barber of barbers; let i = index;">
+      <ion-list *ngIf="isInternetAvailable">
+        <ion-item
+        [detail]="isUsedAsChild"
+        button="true"
+        (click)="getSelectedBarber(i)">
+        <ion-thumbnail class="ion-margin-end">
+          <ion-img [src]='barber.companyImage'>
+          </ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ barber.firstName }} {{ barber.lastName }}</h2>
+          <p>{{ barber.address }}</p>
+        </ion-label >
+      </ion-item>
+    </ion-list>
+      <ion-item-options *ngIf="!isUsedAsChild">
+            <ion-item-option color="danger" (click)="deleteBarber(i, slidingItem)">
+              <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+            </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+<div *ngIf="!isInternetAvailable" class="ion-text-center center-item-vertical ion-padding" >
+  <ion-label>
+    <ion-icon size="large" color="warning" name="wifi-outline"></ion-icon>
+    <p>You're disconnected. Check your internet go back and try again.</p>
+  </ion-label>
+</div>
+
+<div *ngIf="shouldShowEmptyList" class="ion-text-center center-item-vertical ion-padding" >
+  <ion-label>
+    <p>Your barber's list is empty! please add a barber</p>
+  </ion-label>
+</div>
+
 </ion-content>
 </ng-template>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { IonItemSliding, ModalController } from '@ionic/angular';
+
 import { Barber } from 'src/app/interface/barber.interface';
 import { AddBarberPage } from '../add-barber/add-barber.page';
 import { LoaderService } from '../loader/loader.service';
@@ -19,8 +20,12 @@ export class MyBarbersPage implements OnInit {
   dataFromModal: string;
   public barbers: Array<Barber>;
   public selectedBarber: Barber;
-  public shouldShowContentsItems =  true;
   public backButtonUrl: string;
+  public shouldShowContentsItems =  true;
+  public isInternetAvailable =  true;
+  public shouldShowEmptyList =  false;
+
+  private myID = 8287272;
 
   constructor(
      private barbersService: MyBarbersService,
@@ -41,7 +46,7 @@ export class MyBarbersPage implements OnInit {
     this.barbersService.setSelectedBarber(this.selectedBarber);
 }
 
-public navigateToAddBarberPage(): void{
+public openAddBarberModal(): void{
  this.modalCtrl.create({
     component: AddBarberPage,
     componentProps: { myListOfBarbers: this.barbers },
@@ -57,25 +62,55 @@ public navigateToAddBarberPage(): void{
     return;
    }
 
-   const barber = returnedObject.data;
-   let isBarberExist: boolean;
+  const barber = returnedObject.data;
+  let isBarberExist: boolean;
 
-   for(const $barber in this.barbers){
-      if(this.barbers[$barber].phone === barber.phone){
-        isBarberExist = true;
-         this.showItemExistToast('Duplicates Found!','This barber already exist!!');
-         return;
-      }
-   }
+  for(const $barber in this.barbers){
+    if(this.barbers[$barber].phone === barber.phone){
+      isBarberExist = true;
+      this.showItemExistToast('Duplicates Found!','This barber already exist!!');
+      return;
+    }
+  }
 
-   if(!isBarberExist){
+  if(!isBarberExist){
       this.barbers.push(barber);
       isBarberExist = false;
+      this.onBarbersListEmpty();
       this.showItemExistToast('Linking Successful!','Barber was added to your list');
       }
 });
 
 }
+
+
+public deleteBarber(index: number, slidedItem: IonItemSliding): void{
+    const barber: Barber = this.barbers[index];
+    this.loaderService.load()
+        .then((spinner: HTMLIonLoadingElement) => {
+      spinner.present();
+
+      this.barbersService
+      .deleteBarberByIndex(this.myID, barber.phone)
+      .subscribe({
+        next: () => {
+          spinner.dismiss();
+          this.barbers.splice(index,1);
+
+          slidedItem.close();
+          this.loaderService
+          .showToast('Deleted', 'Barber was deleted successfully!', 'bottom', 'success');
+          this.onBarbersListEmpty();
+        },
+        error: () => {
+          this.loaderService
+              .showToast('Connection Error!', 'You\'re not connected to the internet', 'bottom', 'danger');
+              spinner.dismiss();
+        }
+      });
+    });
+}
+
 
 ionViewWillLeave(){
   this.isUsedAsChild = false;
@@ -87,20 +122,29 @@ private onLoadBarbers(): void{
   .then((spinner: HTMLIonLoadingElement) => {
     spinner.present();
 
-    this.barbersService.fetchMyBarbers(8287272)
+    this.barbersService.fetchMyBarbers(this.myID)
     .subscribe({
       next: (responseData: Barber[]) => {
-        if(responseData !== null){
+
           this.barbers = [...responseData];
-        }
+          this.onBarbersListEmpty();
         spinner.dismiss();
       },
       error: () => {
-        console.log('something went wrong');
+        this.isInternetAvailable = false;
         spinner.dismiss();
       }
     });
   });
+}
+
+private onBarbersListEmpty(): void{
+  if(this.barbers.length <= 0 ){
+    this.shouldShowEmptyList = true;
+  }
+  else {
+    this.shouldShowEmptyList = false;
+  }
 }
 
 private showItemExistToast(header: string, massage: string): void{

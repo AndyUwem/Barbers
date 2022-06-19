@@ -28,7 +28,6 @@ export class MyBarbersService{
     }
 
 
-
   public findBarberByPhone(phone: number): Observable<Barber>{
        return this.http
         .get<Barber>(`${environment.apiUrl}barbers/list-of-barbers.json?orderBy="phone"&equalTo=${phone}`)
@@ -36,6 +35,9 @@ export class MyBarbersService{
          tap(barber => barber));
   }
 
+  public deleteBarberByIndex(myId: number, barberId: number): Observable<Barber>{
+  return this.http.delete<Barber>(`${environment.apiUrl}barbers/customers/${myId}/my-barbers/${barberId}.json`);
+  }
 
    public setSelectedBarber(barber: Barber): void {
         this.barberObservable.next(barber);
