@@ -9,6 +9,7 @@ import { ApointmentListViewComponent } from './apointment-list-view/apointment-l
 import { Barber } from 'src/app/interface/barber.interface';
 import { Router } from '@angular/router';
 import { MyBarbersService } from '../my-barbers/my-barbers.service';
+import { TransactionStatusComponent } from 'src/app/reuseables/transaction-status/transaction-status.component';
 
 @Component({
   selector: 'app-apointment',
@@ -42,28 +43,6 @@ export class ApointmentPage implements OnInit {
     this.onPageLoad();
   }
 
-  public onOpenListItemsModal(selectedItemIndex: number){
-          this.modalCtrl
-          .create({
-            component: ApointmentListViewComponent,
-            componentProps: {
-              dataFromParent: { selectedBarber: this.selectedBarber, selectedItemIndex }
-            }
-          })
-          .then( modal => {
-            modal.present();
-            return modal.onDidDismiss();
-          })
-          .then((resultData: any) =>{
-              if(resultData.role === 'selected'){
-                const selectedListItem = resultData.data.selectedListItem;
-
-                this.populateNewApointmentList(selectedItemIndex, selectedListItem);
-                 console.log(selectedListItem, selectedItemIndex);
-                 this.resetCost();
-              }
-          });
-  }
 
   public calculateBookingCost(): void{
     for( const [key, value] of this.apointmentOrderColection ){
@@ -73,7 +52,11 @@ export class ApointmentPage implements OnInit {
   }
 
   public bookApointment(): void {
-          console.log(this.apointmentOrderColection.size);
+          this.apointmentOrderColection
+          .forEach(data => {
+            console.log(data.key, data.value);
+          });
+          this.onOpenTransactionStatusModal();
   }
 
   public cancelApointment(): void{
@@ -82,9 +65,47 @@ export class ApointmentPage implements OnInit {
 
   public onShowBarberPage(emitedData: boolean): void{
           this.isSelectBabrberView = emitedData;
-          this.myBarberService.getSelectedBarber()
-          .subscribe((barber: Barber) => this.selectedBarber = barber);
+          this.myBarberService
+              .getSelectedBarber()
+              .subscribe((barber: Barber) => this.selectedBarber = barber);
   }
+
+  public onOpenListItemsModal(selectedItemIndex: number){
+    this.modalCtrl
+    .create({
+      component: ApointmentListViewComponent,
+      componentProps: {
+        dataFromParent: { selectedBarber: this.selectedBarber, selectedItemIndex }
+      }
+    })
+    .then( modal => {
+      modal.present();
+      return modal.onDidDismiss();
+    })
+    .then((resultData: any) =>{
+        if(resultData.role === 'selected'){
+          const selectedListItem = resultData.data.selectedListItem;
+
+          this.populateNewApointmentList(selectedItemIndex, selectedListItem);
+           console.log(selectedListItem, selectedItemIndex);
+           this.resetCost();
+        }
+    });
+}
+
+  private onOpenTransactionStatusModal(): void{
+        this.modalCtrl.create({
+          component: TransactionStatusComponent,
+          componentProps: {
+            inputDataFromParent: {naviagtionUrl: ''}
+          }
+        })
+        .then((modal: HTMLIonModalElement) => {
+            modal.present();
+            return modal.onDidDismiss();
+        });
+  }
+
 
   private onPageLoad(): void {
     this.backButtonUrl = this.navigationPanelService.backToHomeUrl;
