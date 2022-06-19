@@ -24,6 +24,11 @@ export class HomeDashboardService {
     tab: '/my-history', iconName: 'book',
     title: 'Check History',
     subTitle: 'View your histories with already linked barbers'
+   },
+   {
+    tab: '/my-appointments', iconName: 'time',
+    title: 'My appointments',
+    subTitle: 'View your active appointments'
    }
   ];
   }

@@ -50,6 +50,13 @@ const routes: Routes = [
     redirectTo: 'navigation-panel',
     pathMatch: 'full',
   },
+  {
+    path: 'my-appointments',
+    loadChildren: () => import('./components/my-appointments/my-appointments.module').then(
+      m => m.MyAppointmentsPageModule)
+  }
+
+
 ];
 
 @NgModule({
