@@ -7,12 +7,18 @@ import { LoaderService } from '../loader/loader.service';
 import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
 import { MyBarbersService } from './my-barbers.service';
 
+interface BarberModalData {
+  data: Barber;
+  role: string;
+}
+
 @Component({
   selector: 'app-my-barbers',
   templateUrl: './my-barbers.page.html',
   styleUrls: ['./my-barbers.page.scss'],
 })
 export class MyBarbersPage implements OnInit {
+
 
   @Output() showBarberPage = new EventEmitter<boolean>();
   @Input() isUsedAsChild: boolean;
@@ -57,28 +63,11 @@ public openAddBarberModal(): void{
         addBarberModal.present();
         return addBarberModal.onDidDismiss();
 })
-.then(( returnedObject: {data: Barber; role: string}) =>{
+.then(( returnedObject: BarberModalData) =>{
   if(returnedObject.role !== 'success'){
     return;
    }
-
-  const barber = returnedObject.data;
-  let isBarberExist: boolean;
-
-  for(const $barber in this.barbers){
-    if(this.barbers[$barber].phone === barber.phone){
-      isBarberExist = true;
-      this.showItemExistToast('Duplicates Found!','This barber already exist!!');
-      return;
-    }
-  }
-
-  if(!isBarberExist){
-      this.barbers.push(barber);
-      isBarberExist = false;
-      this.onBarbersListEmpty();
-      this.showItemExistToast('Linking Successful!','Barber was added to your list');
-      }
+   this.runBarberLinkingOperation(returnedObject);
 });
 
 }
@@ -138,6 +127,25 @@ private onLoadBarbers(): void{
   });
 }
 
+private runBarberLinkingOperation(returnedObject: BarberModalData): void{
+  const barber = returnedObject.data;
+  let isBarberExist: boolean;
+
+  for(const $barber in this.barbers){
+    if(this.barbers[$barber].phone === barber.phone){
+      isBarberExist = true;
+      this.showItemExistToast('Duplicates Found!','This barber already exist!!');
+      return;
+    }
+  }
+
+  if(!isBarberExist){
+      this.barbers.push(barber);
+      isBarberExist = false;
+      this.onBarbersListEmpty();
+      this.showItemExistToast('Linking Successful!','Barber was added to your list');
+      }
+}
 private onBarbersListEmpty(): void{
   if(this.barbers.length <= 0 ){
     this.shouldShowEmptyList = true;
@@ -149,7 +157,7 @@ private onBarbersListEmpty(): void{
 
 private showItemExistToast(header: string, massage: string): void{
   this.loaderService
-  .showToast(header, massage, 'bottom', 'dark');
+      .showToast(header, massage, 'bottom', 'dark');
 }
 
 
