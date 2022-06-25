@@ -1,9 +1,12 @@
 
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 
 
 import { ApointmentListOptions } from 'src/app/interface/apointmen-list-options.interface';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,9 +14,11 @@ import { ApointmentListOptions } from 'src/app/interface/apointmen-list-options.
 })
 export class ApointmentService {
 
-  constructor() {}
+  private usersApi = environment.apiUrl;
 
-  public get getApointmentListItems(): Array<ApointmentListOptions> {
+  constructor(private http: HttpClient) {}
+
+   get getApointmentListItems(): Array<ApointmentListOptions> {
     return [
       {
         title: 'Select hair service type',
@@ -38,4 +43,11 @@ export class ApointmentService {
     ];
   }
 
+
+  addToMyAppointments(customerId: number, appointment: any): Observable<any>{
+    return this.http
+               .post<any>(
+                 `${this.usersApi}/barbers/customers/${customerId}/my-appointments.json`,
+                  {...appointment });
+}
 }

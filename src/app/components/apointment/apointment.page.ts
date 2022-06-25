@@ -10,6 +10,7 @@ import { Barber } from 'src/app/interface/barber.interface';
 import { Router } from '@angular/router';
 import { MyBarbersService } from '../my-barbers/my-barbers.service';
 import { TransactionStatusComponent } from 'src/app/reuseables/transaction-status/transaction-status.component';
+import { LoaderService } from '../loader/loader.service';
 
 @Component({
   selector: 'app-apointment',
@@ -30,10 +31,13 @@ export class ApointmentPage implements OnInit {
   public hasChildComponent =  true;
   public totalOrderCost = 0;
 
+  private myID = 8287272;
+
   constructor(
     private navigationPanelService: NavigationPanelService,
     private apointmentService: ApointmentService,
     private myBarberService: MyBarbersService,
+    private loaderService: LoaderService,
     private modalCtrl: ModalController,
     private loadingCtr: LoadingController,
     private router: Router
@@ -52,11 +56,33 @@ export class ApointmentPage implements OnInit {
   }
 
   public bookApointment(): void {
+     this.loadingCtr.create({
+       spinner: 'dots',
+       message: 'Booking...',
+       keyboardClose: true
+     })
+     .then((spinner: HTMLIonLoadingElement) => {
+       spinner.present();
+
+      this.apointmentService
+          .addToMyAppointments(this.myID, {})
+          .subscribe({
+            next: (resultData: any) => {
+                spinner.dismiss();
+                this.onOpenTransactionStatusModal();
+                console.log(resultData);
+            },
+            error: () => {
+              spinner.dismiss();
+              this.loaderService
+              .showToast('Connection Error!', 'You\'re not connected to the internet', 'top', 'danger');
+            }
+          });
+     });
           this.apointmentOrderColection
           .forEach(data => {
             console.log(data.key, data.value);
           });
-          this.onOpenTransactionStatusModal();
   }
 
   public cancelApointment(): void{
@@ -97,7 +123,7 @@ export class ApointmentPage implements OnInit {
         this.modalCtrl.create({
           component: TransactionStatusComponent,
           componentProps: {
-            inputDataFromParent: {naviagtionUrl: ''}
+            inputDataFromParent:  '/my-appointments'
           }
         })
         .then((modal: HTMLIonModalElement) => {
@@ -151,7 +177,8 @@ export class ApointmentPage implements OnInit {
         this.loadingCtr.create({
           message: 'Calculating Cost...',
           keyboardClose: true,
-          spinner: 'bubbles'
+          spinner: 'bubbles',
+          cssClass: 'success'
         })
         .then( loadingEl => {
             loadingEl.present();

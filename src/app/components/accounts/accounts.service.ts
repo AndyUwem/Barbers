@@ -20,10 +20,10 @@ export class AccountsService {
         return this.http.patch<User>(`${this.usersApi}/barbers/customers/${user.id}.json`, {...user });
       }
 
-      addBarberToMyList(id: number, barber: Barber): Observable<Barber>{
+      addBarberToMyList(customerId: number, barber: Barber): Observable<Barber>{
             return this.http
                        .patch<Barber>(
-                         `${this.usersApi}/barbers/customers/${id}/my-barbers/${barber.phone}.json`,
+                         `${this.usersApi}/barbers/customers/${customerId}/my-barbers/${barber.phone}.json`,
                           {...barber });
       }
 
