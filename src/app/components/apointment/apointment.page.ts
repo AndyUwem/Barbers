@@ -79,10 +79,14 @@ export class ApointmentPage implements OnInit {
             }
           });
      });
+     let ar = [];
+
           this.apointmentOrderColection
-          .forEach(data => {
-            console.log(data.key, data.value);
+          .forEach((value) => {
+            ar = [...value];
           });
+
+          console.log(ar);
   }
 
   public cancelApointment(): void{
@@ -123,7 +127,7 @@ export class ApointmentPage implements OnInit {
         this.modalCtrl.create({
           component: TransactionStatusComponent,
           componentProps: {
-            inputDataFromParent:  '/my-appointments'
+            inputDataFromParent:  '/navigation-panel/nav/home'
           }
         })
         .then((modal: HTMLIonModalElement) => {
@@ -171,6 +175,10 @@ export class ApointmentPage implements OnInit {
           this.apointmentOrderColection.set(listIndex, item);
           break;
      };
+      }
+
+      private newAppointment(): void{
+
       }
 
       private showCostLoadingIndicator(): void{

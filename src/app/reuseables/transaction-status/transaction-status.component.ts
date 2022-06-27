@@ -20,7 +20,7 @@ export class TransactionStatusComponent implements OnInit {
   ngOnInit() {}
 
   done(): void {
-    this.router.navigate([this.inputDataFromParent]);
+    this.router.navigateByUrl(this.inputDataFromParent);
     this.modalCtr.dismiss();
   }
 }
