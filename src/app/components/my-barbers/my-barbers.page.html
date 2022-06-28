@@ -3,16 +3,23 @@
     <ion-toolbar>
       <app-back-button [url]="backButtonUrl" slot="start"></app-back-button>
      <ion-title> Your Barbers List </ion-title>
-     <ion-button
-     slot="end"
-      size="default"
+
+      <ion-chip
+      slot="end"
+      color="success"
       fill="clear"
-      shape="round"
       strong="true"
+      outline="true"
       routerDirection="foward"
-      (click)="openAddBarberModal()">
-      <ion-icon slot="icon-only" name="add"></ion-icon>
-     </ion-button>
+      (click)="openAddBarberModal()"
+      class="ion-margin-end"
+      >
+        <ion-icon name="add-circle-outline"></ion-icon>
+        <ion-label>Add</ion-label>
+      </ion-chip>
+      <!-- <ion-button
+      slot="end">
+     </ion-button> -->
     </ion-toolbar>
 </ion-header>
 
