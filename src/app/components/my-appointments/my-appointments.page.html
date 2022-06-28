@@ -1,9 +1,87 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>my-appointments</ion-title>
+    <app-back-button url="/" slot="start"></app-back-button>
+    <ion-title>My Appointments</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card
+  *ngFor="let appointment of appointments"
+    button="true"
+  >
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label>
+                  <p>Service Type</p>
+                  <h3>{{appointment.hairServiceType}}</h3>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  <p>Appointment Date</p>
+                  <h3>{{appointment.apointmentDate | date}} </h3>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  <p>RefCode</p>
+                  <h3 style="font-size: small;">{{appointment.bookingId}}</h3>
+                </ion-label>
+              </ion-item>
+
+            </ion-list>
+          </ion-col>
+
+          <ion-col size="5">
+            <ion-list lines="none">
+              <ion-item>
+                <ion-label>
+                  <p>Style Name</p>
+                  <h3>{{appointment.hairStyleName}}</h3>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  <p>Booking Status</p>
+                  <h3>Active
+                    <ion-icon
+                    slot="end"
+                    color="success"
+                    name="checkmark-circle"></ion-icon>
+                  </h3>
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>
+                  <p>Amount Paid</p>
+                  <h3 style="color: red;">{{appointment.totalCost | currency}}</h3>
+                </ion-label>
+              </ion-item>
+
+            </ion-list>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+      <ion-button
+      (click)="cancelBooking()"
+      size="normal"
+      expand="block"
+      color="danger"
+      class="ion-margin"
+      >
+      Cancel
+    </ion-button>
+    </ion-card-content>
+</ion-card>
 
 </ion-content>

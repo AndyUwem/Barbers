@@ -28,4 +28,15 @@ export class AccountsService {
       }
 
 
+     currentUser(): User{
+        return {
+        id:'8287272',
+        address: '14 fight avenue',
+        age:51,
+        firstName:'James',
+        gender:'M',
+        lastName:'Maddison',
+        phone:8287272
+          };
+      }
 }

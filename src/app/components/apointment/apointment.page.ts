@@ -12,10 +12,7 @@ import { MyBarbersService } from '../my-barbers/my-barbers.service';
 import { TransactionStatusComponent } from 'src/app/reuseables/transaction-status/transaction-status.component';
 import { LoaderService } from '../loader/loader.service';
 import { BookedAppointment } from 'src/app/interface/booked-appointment.interface';
-import { User } from 'src/app/interface/user.interface';
-import { Cliper } from 'src/app/interface/cliper.interface';
-import { HairStyle } from 'src/app/interface/hairstyle.interface';
-import { retry } from 'rxjs/operators';
+import { AccountsService } from '../accounts/accounts.service';
 
 @Component({
   selector: 'app-apointment',
@@ -38,13 +35,14 @@ export class ApointmentPage implements OnInit {
 
 
   constructor(
-    private navigationPanelService: NavigationPanelService,
-    private apointmentService: ApointmentService,
-    private myBarberService: MyBarbersService,
-    private loaderService: LoaderService,
     private modalCtrl: ModalController,
     private loadingCtr: LoadingController,
-    private router: Router
+    private router: Router,
+    private navigationPanelService: NavigationPanelService,
+    private loaderService: LoaderService,
+    private myBarberService: MyBarbersService,
+    private apointmentService: ApointmentService,
+    private accountService: AccountsService
     ) { }
 
   ngOnInit() {
@@ -69,7 +67,7 @@ export class ApointmentPage implements OnInit {
        spinner.present();
 
       this.apointmentService
-          .addToMyAppointments(Number(this.currentUser().id), this.buildNewAppointment())
+          .addToMyAppointments(Number(this.accountService.currentUser().id), this.buildNewAppointment())
           .subscribe({
             next: (resultData: any) => {
                 spinner.dismiss();
@@ -179,7 +177,7 @@ export class ApointmentPage implements OnInit {
             .forEach((item: any) => newBookingSelections.push(item));
 
         const newAppointment = {
-            customer: this.currentUser(),
+            customer: this.accountService.currentUser(),
             hairServiceType: newBookingSelections[0].title,
             hairStyleName: newBookingSelections[1].hairStyleName,
             hairStyleImage: newBookingSelections[1].hairStyleImage,
@@ -187,7 +185,7 @@ export class ApointmentPage implements OnInit {
             cliperBrand: newBookingSelections[3].brand,
             cliperName: newBookingSelections[3].cliperName,
             cliperImage: newBookingSelections[3].cliperImage,
-            hairTreatments: newBookingSelections[0].option,
+            hairTreatments: newBookingSelections[4].option,
             apointmentDate: this.todaysDate.toUTCString(),
             totalCost: this.totalOrderCost
           };
@@ -196,18 +194,6 @@ export class ApointmentPage implements OnInit {
 
       }
 
-      private currentUser(): User{
-        return {
-        id:'8287272',
-        address: '14 fight avenue',
-        age:51,
-        firstName:'James',
-        gender:'M',
-        lastName:'Maddison',
-        phone:8287272
-
-        };
-      }
       private showCostLoadingIndicator(): void{
         this.loadingCtr.create({
           message: 'Calculating Cost...',
