@@ -69,10 +69,9 @@ export class ApointmentPage implements OnInit {
       this.apointmentService
           .addToMyAppointments(Number(this.accountService.currentUser().id), this.buildNewAppointment())
           .subscribe({
-            next: (resultData: any) => {
+            next: () => {
                 spinner.dismiss();
                 this.onOpenTransactionStatusModal();
-                console.log(resultData);
             },
             error: () => {
               spinner.dismiss();
@@ -111,7 +110,7 @@ export class ApointmentPage implements OnInit {
           const selectedListItem = resultData.data.selectedListItem;
 
           this.populateNewApointmentList(selectedItemIndex, selectedListItem);
-           console.log(selectedListItem, selectedItemIndex);
+          //  console.log(selectedListItem, selectedItemIndex);
            this.resetCost();
         }
     });
@@ -121,7 +120,7 @@ export class ApointmentPage implements OnInit {
         this.modalCtrl.create({
           component: TransactionStatusComponent,
           componentProps: {
-            inputDataFromParent:  '/navigation-panel/nav/home'
+            inputDataFromParent:  '/my-appointments'
           }
         })
         .then((modal: HTMLIonModalElement) => {

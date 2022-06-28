@@ -1,16 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <app-back-button url="/" slot="start"></app-back-button>
-    <ion-title>My Appointments</ion-title>
+    <ion-title>My Appointment</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card
-  *ngFor="let appointment of appointments"
-    button="true"
-  >
-    <ion-card-content>
+  button="true"
+  *ngFor="let appointment of appointments">
+    <ion-card-content
+    (click)="viewBooking(appointment)">
       <ion-grid>
         <ion-row>
           <ion-col size="7">
@@ -62,7 +62,7 @@
 
               <ion-item>
                 <ion-label>
-                  <p>Amount Paid</p>
+                  <p>Cost total</p>
                   <h3 style="color: red;">{{appointment.totalCost | currency}}</h3>
                 </ion-label>
               </ion-item>
@@ -72,16 +72,17 @@
 
         </ion-row>
       </ion-grid>
-      <ion-button
-      (click)="cancelBooking()"
-      size="normal"
-      expand="block"
-      color="danger"
-      class="ion-margin"
-      >
-      Cancel
-    </ion-button>
     </ion-card-content>
+
+    <ion-button
+    (click)="cancelBooking()"
+    size="normal"
+    expand="block"
+    color="danger"
+    class="ion-margin"
+    >
+    Cancel
+  </ion-button>
 </ion-card>
 
 </ion-content>

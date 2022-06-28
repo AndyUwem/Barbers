@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { BookedAppointment } from 'src/app/interface/booked-appointment.interface';
 import { LoaderService } from '../loader/loader.service';
 import { MyAppointmentsService } from './my-appointments.service';
+import { AppointmentDetailsViewComponent } from './appointment-details-view/appointment-details-view-component';
 
 @Component({
   selector: 'app-my-appointments',
@@ -14,7 +16,8 @@ export class MyAppointmentsPage implements OnInit {
 
   constructor(
     private myAppointmentsService: MyAppointmentsService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private modalCtrl: ModalController
     ) { }
 
   ngOnInit() {}
@@ -23,9 +26,23 @@ export class MyAppointmentsPage implements OnInit {
     this.onPageLoad();
   }
 
+  viewBooking(selectedBooking: BookedAppointment): void{
+  this.modalCtrl.create({
+    component: AppointmentDetailsViewComponent,
+    componentProps: { selectedBooking }
+  })
+  .then((modal: HTMLIonModalElement) => {
+    modal.present();
+  });
+
+
+  }
+
+
   cancelBooking(): void{
     console.log('canceled');
   }
+
 
   private onPageLoad(): void{
     this.loader.load()
@@ -40,7 +57,6 @@ export class MyAppointmentsPage implements OnInit {
                   if(_appointments !== []){
                       this.appointments = [..._appointments];
                   }
-                  console.log(this.appointments);
                 },
                 error: () => {
                   console.log('something went wrong');
@@ -49,5 +65,6 @@ export class MyAppointmentsPage implements OnInit {
           });
     });
   }
+
 
 }
