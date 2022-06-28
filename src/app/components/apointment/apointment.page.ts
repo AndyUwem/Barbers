@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 import { MyBarbersService } from '../my-barbers/my-barbers.service';
 import { TransactionStatusComponent } from 'src/app/reuseables/transaction-status/transaction-status.component';
 import { LoaderService } from '../loader/loader.service';
+import { BookedAppointment } from 'src/app/interface/booked-appointment.interface';
+import { User } from 'src/app/interface/user.interface';
+import { Cliper } from 'src/app/interface/cliper.interface';
+import { HairStyle } from 'src/app/interface/hairstyle.interface';
+import { retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-apointment',
@@ -31,7 +36,6 @@ export class ApointmentPage implements OnInit {
   public hasChildComponent =  true;
   public totalOrderCost = 0;
 
-  private myID = 8287272;
 
   constructor(
     private navigationPanelService: NavigationPanelService,
@@ -65,7 +69,7 @@ export class ApointmentPage implements OnInit {
        spinner.present();
 
       this.apointmentService
-          .addToMyAppointments(this.myID, {})
+          .addToMyAppointments(Number(this.currentUser().id), this.buildNewAppointment())
           .subscribe({
             next: (resultData: any) => {
                 spinner.dismiss();
@@ -79,14 +83,6 @@ export class ApointmentPage implements OnInit {
             }
           });
      });
-     let ar = [];
-
-          this.apointmentOrderColection
-          .forEach((value) => {
-            ar = [...value];
-          });
-
-          console.log(ar);
   }
 
   public cancelApointment(): void{
@@ -177,10 +173,41 @@ export class ApointmentPage implements OnInit {
      };
       }
 
-      private newAppointment(): void{
+      private buildNewAppointment(): BookedAppointment{
+        const newBookingSelections = [];
+        this.apointmentOrderColection
+            .forEach((item: any) => newBookingSelections.push(item));
+
+        const newAppointment = {
+            customer: this.currentUser(),
+            hairServiceType: newBookingSelections[0].title,
+            hairStyleName: newBookingSelections[1].hairStyleName,
+            hairStyleImage: newBookingSelections[1].hairStyleImage,
+            hairDieColor: newBookingSelections[2].color,
+            cliperBrand: newBookingSelections[3].brand,
+            cliperName: newBookingSelections[3].cliperName,
+            cliperImage: newBookingSelections[3].cliperImage,
+            hairTreatments: newBookingSelections[0].option,
+            apointmentDate: this.todaysDate.toUTCString(),
+            totalCost: this.totalOrderCost
+          };
+
+            return newAppointment;
 
       }
 
+      private currentUser(): User{
+        return {
+        id:'8287272',
+        address: '14 fight avenue',
+        age:51,
+        firstName:'James',
+        gender:'M',
+        lastName:'Maddison',
+        phone:8287272
+
+        };
+      }
       private showCostLoadingIndicator(): void{
         this.loadingCtr.create({
           message: 'Calculating Cost...',

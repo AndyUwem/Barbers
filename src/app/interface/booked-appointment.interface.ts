@@ -1,14 +1,17 @@
-import { Cliper } from './cliper.interface';
-import { HairStyle } from './hairstyle.interface';
+
+import { User } from './user.interface';
 
 export interface BookedAppointment {
-  id: string;
-  hairServiceType: string[];
-  hairStyleType: HairStyle;
-  hairDie: boolean;
-  hairDieColor: string[];
-  cliperType: Cliper;
+  bookingId?: string;
+  customer: User;
+  hairServiceType: string;
+  hairStyleName: string;
+  hairStyleImage: string;
+  hairDieColor: string;
+  cliperName: string;
+  cliperBrand: string;
+  cliperImage: string;
   hairTreatments: string;
-  apointmentDate: Date;
+  apointmentDate: string;
   totalCost: number;
 }
