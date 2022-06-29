@@ -10,6 +10,7 @@ import { MyBarbersPage } from './my-barbers.page';
 import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button.module';
 import { AddBarberPage } from '../add-barber/add-barber.page';
 import { AddBarberPageModule } from '../add-barber/add-barber.module';
+import { InternetAndEmptyListErrorViewPageModule } from 'src/app/reuseables/error-status/internet-and-empty-list-error-view.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AddBarberPageModule } from '../add-barber/add-barber.module';
     IonicModule,
     MyBarbersPageRoutingModule,
     BackButtonPageModule,
-    AddBarberPageModule
+    AddBarberPageModule,
+    InternetAndEmptyListErrorViewPageModule
   ],
   declarations: [MyBarbersPage],
   exports: [MyBarbersPage],

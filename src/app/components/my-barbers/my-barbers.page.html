@@ -56,17 +56,11 @@
       </ion-item-options>
     </ion-item-sliding>
 
-<div *ngIf="!isInternetAvailable" class="ion-text-center center-item-vertical ion-padding" >
-  <ion-label>
-    <ion-icon size="large" color="warning" name="wifi-outline"></ion-icon>
-    <p>You're disconnected. Check your internet go back and try again.</p>
-  </ion-label>
-</div>
-
-<div *ngIf="shouldShowEmptyList" class="ion-text-center center-item-vertical ion-padding" >
-  <ion-label>
-    <p>Your barber's list is empty! please add a barber</p>
-  </ion-label>
+<div>
+  <app-internet-and-empty-list-error-view
+  [isInternetAvailable]="isInternetAvailable"
+  [shouldShowEmptyList]="shouldShowEmptyList"
+  ></app-internet-and-empty-list-error-view>
 </div>
 
 </ion-content>

@@ -13,6 +13,8 @@ import { AppointmentDetailsViewComponent } from './appointment-details-view/appo
 export class MyAppointmentsPage implements OnInit {
 
    appointments: BookedAppointment[];
+   isInternetAvailable = true;
+   shouldShowEmptyList = true;
 
   constructor(
     private myAppointmentsService: MyAppointmentsService,
@@ -22,7 +24,7 @@ export class MyAppointmentsPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.onPageLoad();
   }
 
@@ -35,7 +37,6 @@ export class MyAppointmentsPage implements OnInit {
     modal.present();
   });
 
-
   }
 
 
@@ -45,6 +46,10 @@ export class MyAppointmentsPage implements OnInit {
 
 
   private onPageLoad(): void{
+    if(!navigator.onLine){
+      this.isInternetAvailable = !this.isInternetAvailable;
+      return;
+    }
     this.loader.load()
     .then((spinner: HTMLIonLoadingElement) => {
       spinner.present();
@@ -56,10 +61,10 @@ export class MyAppointmentsPage implements OnInit {
                   spinner.dismiss();
                   if(_appointments !== []){
                       this.appointments = [..._appointments];
+                      this.shouldShowEmptyList = !this.shouldShowEmptyList;
                   }
                 },
                 error: () => {
-                  console.log('something went wrong');
                   spinner.dismiss();
                 }
           });
