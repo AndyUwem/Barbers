@@ -20,14 +20,15 @@
 
         <ion-content>
           <ion-list *ngFor="let menuRoute of menuRoutes;">
+          <ion-menu-toggle>
             <ion-item
-             button="true"
-             lines="none"
-             [routerLink]="menuRoute.url"
-             >
-            <ion-icon slot="start" [name]="menuRoute.name"></ion-icon>
-            <ion-label>{{menuRoute.label}}</ion-label>
-            </ion-item>
+            button="true"
+            lines="none"
+            [routerLink]="menuRoute.url">
+           <ion-icon slot="start" [name]="menuRoute.name"></ion-icon>
+           <ion-label>{{menuRoute.label}}</ion-label>
+           </ion-item>
+          </ion-menu-toggle>
           </ion-list>
         </ion-content>
       </ion-menu>
