@@ -16,14 +16,13 @@ export class NavigationPanelService {
   public get getTabRoutes(): Array<NavRoutes>{
     return [
       { url: 'home', name: 'home', label: 'Home'},
-      { url: 'about', name: 'information-circle', label: 'About'}
+      { url: 'profile', name: 'person-circle', label: 'Profile'},
     ];
   }
 
   public get getMenuRoutes(): Array<NavRoutes>{
     return [
       { url: '/', name: 'home', label: 'Home'},
-      { url: 'navigation-panel/nav/profile', name: 'person-circle', label: 'Profile'},
       { url: 'navigation-panel/nav/settings', name: 'settings', label: 'Settings'},
       { url: 'navigation-panel/nav/about', name: 'information-circle', label: 'About'}
     ];
