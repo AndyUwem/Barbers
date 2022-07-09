@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
+import { NavRoutes } from 'src/app/interface/navigation-routes.interface';
 
-interface NavRoutes{
-  url: string;
-   name: string;
-   label: string;
- }
 
 @Injectable({
   providedIn: 'root'

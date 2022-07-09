@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from './components/loader/loader.service';
 import { NavigationPanelService } from './components/navigation-panel/navigation-panel.service';
+import { NavRoutes } from './interface/navigation-routes.interface';
 @Component({
   selector: 'app-root',
 templateUrl: 'app.component.html',
@@ -8,7 +9,7 @@ templateUrl: 'app.component.html',
 })
 export class AppComponent implements OnInit{
 
-   menuRoutes = [];
+   menuRoutes: Array<NavRoutes>;
    isLoading = true;
 
   constructor(
