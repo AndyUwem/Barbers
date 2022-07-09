@@ -23,8 +23,12 @@ export class NavigationPanelService {
   public get getMenuRoutes(): Array<NavRoutes>{
     return [
       { url: '/', name: 'home', label: 'Home'},
-      { url: 'navigation-panel/nav/settings', name: 'settings', label: 'Settings'},
+      { url: '/apointment', name: 'cut', label: 'Book'},
+      { url: '/my-appointments', name: 'time', label: 'Appointments'},
+      { url: '/my-barbers', name: 'globe', label: 'Your Barbers'},
       { url: 'navigation-panel/nav/about', name: 'information-circle', label: 'About'}
     ];
   }
+
+
 }
