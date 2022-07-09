@@ -104,7 +104,12 @@ export class AddBarberPage implements OnInit {
 
  private showConnectionErrorMassage(spinner: HTMLIonLoadingElement): void{
   this.loaderService
-      .showToast('Connection Error!', 'You\'re not connected to the internet', 'bottom', 'danger');
+      .showToast(
+        'Connection Error!',
+        'You\'re not connected to the internet',
+        'bottom',
+        'wifi-sharp',
+        'danger');
       spinner.dismiss();
  }
 

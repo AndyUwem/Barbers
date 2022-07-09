@@ -28,6 +28,7 @@ export class LoaderService{
    header: string,
    message: string,
    position: 'top' | 'bottom' | 'middle',
+   icon: string,
    color: string): void{
     this.toastCtrl.create({
      header,
@@ -37,7 +38,7 @@ export class LoaderService{
      keyboardClose: true,
      mode: 'ios',
      color,
-     icon: 'information-circle'
+     icon
    })
    .then((toast: HTMLIonToastElement) =>{
     toast.present();

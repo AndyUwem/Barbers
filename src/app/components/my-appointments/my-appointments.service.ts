@@ -36,7 +36,7 @@ export class MyAppointmentsService {
 
         appointments.push({
           bookingId: key,
-          customer: responseData[key].customer,
+          barber: responseData[key].barber,
           hairStyleName: responseData[key].hairStyleName,
           hairStyleImage: responseData[key].hairStyleImage,
           hairServiceType: responseData[key].hairServiceType,

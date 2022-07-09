@@ -76,7 +76,12 @@ export class ApointmentPage implements OnInit {
             error: () => {
               spinner.dismiss();
               this.loaderService
-              .showToast('Connection Error!', 'You\'re not connected to the internet', 'top', 'danger');
+              .showToast(
+                'Connection Error!',
+                'You\'re not connected to the internet',
+                'top',
+                'wifi-sharp',
+                'danger');
             }
           });
      });
@@ -176,7 +181,7 @@ export class ApointmentPage implements OnInit {
             .forEach((item: any) => newBookingSelections.push(item));
 
         const newAppointment = {
-            customer: this.accountService.currentUser(),
+            barber: this.selectedBarber,
             hairServiceType: newBookingSelections[0].title,
             hairStyleName: newBookingSelections[1].hairStyleName,
             hairStyleImage: newBookingSelections[1].hairStyleImage,

@@ -9,6 +9,7 @@ export class InternetAndEmptyListErrorViewPage implements OnInit {
 
   @Input() isInternetAvailable: boolean;
   @Input() shouldShowEmptyList: boolean;
+  @Input() statusText: string;
   constructor() { }
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import { BookedAppointment } from 'src/app/interface/booked-appointment.interfac
 import { LoaderService } from '../loader/loader.service';
 import { MyAppointmentsService } from './my-appointments.service';
 import { AppointmentDetailsViewComponent } from './appointment-details-view/appointment-details-view-component';
+import { AccountsService } from '../accounts/accounts.service';
 
 @Component({
   selector: 'app-my-appointments',
@@ -14,12 +15,14 @@ export class MyAppointmentsPage implements OnInit {
 
    appointments: BookedAppointment[];
    isInternetAvailable = true;
-   shouldShowEmptyList = true;
+   shouldShowEmptyList = false;
+   statusText = 'You currently do not have any appointment!';
 
   constructor(
+    private modalCtrl: ModalController,
     private myAppointmentsService: MyAppointmentsService,
+    private accountService: AccountsService,
     private loader: LoaderService,
-    private modalCtrl: ModalController
     ) { }
 
   ngOnInit() {}
@@ -55,13 +58,15 @@ export class MyAppointmentsPage implements OnInit {
       spinner.present();
 
       this.myAppointmentsService
-          .findMyAppointments(8287272)
+          .findMyAppointments(Number(this.accountService.currentUser().id))
           .subscribe({
                 next: (_appointments: BookedAppointment[]) => {
                   spinner.dismiss();
-                  if(_appointments !== []){
+                  if(_appointments.length > 0){
                       this.appointments = [..._appointments];
-                      this.shouldShowEmptyList = !this.shouldShowEmptyList;
+                  }
+                  else{
+                    this.shouldShowEmptyList = !this.shouldShowEmptyList;
                   }
                 },
                 error: () => {

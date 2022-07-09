@@ -1,9 +1,9 @@
 
-import { User } from './user.interface';
+import { Barber } from './barber.interface';
 
 export interface BookedAppointment {
   bookingId?: string;
-  customer: User;
+  barber: Barber;
   hairServiceType: string;
   hairStyleName: string;
   hairStyleImage: string;

@@ -22,7 +22,6 @@ export class ApointmentListViewComponent implements OnInit {
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    // console.log(this.dataFromParent);
      this.barber = {...this.dataFromParent.selectedBarber};
   }
 

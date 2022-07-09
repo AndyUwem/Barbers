@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonItemSliding, ModalController } from '@ionic/angular';
 
 import { Barber } from 'src/app/interface/barber.interface';
+import { AccountsService } from '../accounts/accounts.service';
 import { AddBarberPage } from '../add-barber/add-barber.page';
 import { LoaderService } from '../loader/loader.service';
 import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
@@ -24,17 +25,17 @@ export class MyBarbersPage implements OnInit {
   @Input() isUsedAsChild: boolean;
 
   dataFromModal: string;
-  public barbers: Array<Barber>;
-  public selectedBarber: Barber;
-  public backButtonUrl: string;
-  public shouldShowContentsItems =  true;
-  public isInternetAvailable =  true;
-  public shouldShowEmptyList =  false;
-
-  private myID = 8287272;
+  barbers: Array<Barber>;
+  selectedBarber: Barber;
+  backButtonUrl: string;
+  shouldShowContentsItems =  true;
+  isInternetAvailable =  true;
+  shouldShowEmptyList =  false;
+  statusText = 'Your barber\'s list is empty! please add a barber';
 
   constructor(
      private barbersService: MyBarbersService,
+     private accountsSerivce: AccountsService,
      private loaderService: LoaderService,
      private navigationPanelService: NavigationPanelService,
      private modalCtrl: ModalController
@@ -46,13 +47,12 @@ export class MyBarbersPage implements OnInit {
     this.onLoadBarbers();
   }
 
-  public getSelectedBarber(index: number): void {
+  getSelectedBarber(index: number): void {
     this.selectedBarber = {...this.barbers[index]};
     this.showBarberPage.emit(false);
     this.barbersService.setSelectedBarber(this.selectedBarber);
 }
-
-public openAddBarberModal(): void{
+  openAddBarberModal(): void{
  this.modalCtrl.create({
     component: AddBarberPage,
     componentProps: { myListOfBarbers: this.barbers },
@@ -72,15 +72,15 @@ public openAddBarberModal(): void{
 
 }
 
-
-public deleteBarber(index: number, slidedItem: IonItemSliding): void{
+  deleteBarber(index: number, slidedItem: IonItemSliding): void{
     const barber: Barber = this.barbers[index];
-    this.loaderService.load()
+    this.loaderService
+        .load()
         .then((spinner: HTMLIonLoadingElement) => {
       spinner.present();
 
       this.barbersService
-      .deleteBarberByIndex(this.myID, barber.phone)
+      .deleteBarberByIndex(Number(this.accountsSerivce.currentUser().id), barber.phone)
       .subscribe({
         next: () => {
           spinner.dismiss();
@@ -88,12 +88,23 @@ public deleteBarber(index: number, slidedItem: IonItemSliding): void{
 
           slidedItem.close();
           this.loaderService
-          .showToast('Deleted', 'Barber was deleted successfully!', 'bottom', 'success');
+          .showToast(
+            'Deleted',
+            'Barber was deleted successfully!',
+            'bottom',
+            'checkmark-sharp',
+            'success');
           this.onBarbersListEmpty();
         },
         error: () => {
           this.loaderService
-              .showToast('Connection Error!', 'You\'re not connected to the internet', 'bottom', 'danger');
+              .showToast(
+                '',
+                'You\'re not connected to the internet',
+                 'bottom',
+                 'wifi-sharp',
+                  'dark'
+                );
               spinner.dismiss();
         }
       });
@@ -111,7 +122,8 @@ private onLoadBarbers(): void{
   .then((spinner: HTMLIonLoadingElement) => {
     spinner.present();
 
-    this.barbersService.fetchMyBarbers(this.myID)
+    this.barbersService
+    .fetchMyBarbers(Number(this.accountsSerivce.currentUser().id))
     .subscribe({
       next: (responseData: Barber[]) => {
 
@@ -157,7 +169,7 @@ private onBarbersListEmpty(): void{
 
 private showItemExistToast(header: string, massage: string): void{
   this.loaderService
-      .showToast(header, massage, 'bottom', 'dark');
+      .showToast(header, massage, 'bottom', 'duplicate-sharp','dark');
 }
 
 
