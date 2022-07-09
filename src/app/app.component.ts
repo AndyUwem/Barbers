@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from './components/loader/loader.service';
+import { NavigationPanelService } from './components/navigation-panel/navigation-panel.service';
 @Component({
   selector: 'app-root',
 templateUrl: 'app.component.html',
@@ -7,30 +8,43 @@ templateUrl: 'app.component.html',
 })
 export class AppComponent implements OnInit{
 
-  public isLoading = true;
+   menuRoutes = [];
+   isLoading = true;
 
-  constructor(private loaderService: LoaderService) {}
+  constructor(
+    private loaderService: LoaderService,
+    private navigationService: NavigationPanelService
+    ) {}
 
   ngOnInit() {
      this.loadApplication();
   }
 
   private loadApplication() {
-        setTimeout(() => {
-          if(navigator.onLine){
-            this.isLoading = false;
-          }
-          else{
-            this.isLoading = true;
-            this.loaderService.showToast(
-              'Connection Error!',
-              'Internet connection was lost!',
-              'top',
-              'danger'
-            );
-          }
-        }, 2000);
+      this.checkInternetConnection();
+      this.getMenuRoutes();
   }
 
+private checkInternetConnection(){
+  setTimeout(() => {
+    if(navigator.onLine){
+      this.isLoading = false;
+    }
+    else{
+      this.isLoading = true;
+      this.loaderService.showToast(
+        '',
+        'Your are currently offline.',
+        'top',
+        'wifi-sharp',
+        'dark'
+      );
+    }
+  }, 2000);
+}
+
+private getMenuRoutes(){
+ this.menuRoutes = this.navigationService.getMenuRoutes;
+}
 
 }
