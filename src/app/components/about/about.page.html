@@ -2,18 +2,16 @@
   <ion-toolbar>
     <ion-title>Accounts</ion-title>
     <ion-button
-    color="dark"
+    color="success"
     size="large"
     slot="end"
-    fill="clear"
-    >
-      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-    </ion-button>
+    fill="clear">
+  </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<form [formGroup]="newCustomerForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="newCustomerForm" (ngSubmit)="onSubmit()">
   <ion-card-header>
     <h4>Your Information</h4>
   </ion-card-header>
@@ -105,5 +103,62 @@
     <ion-spinner class="spinner" color="secondary" name="lines"></ion-spinner>
   </div>
 </ion-button>
+</form> -->
+
+<ion-card class="login-container">
+  <ion-card-header>
+    <h2>Welcome Back</h2>
+  </ion-card-header>
+  <ion-card-content>
+<form>
+  <ion-label>
+    <p>Email</p>
+  </ion-label>
+  <ion-input type="email" class="input-custom-style"></ion-input>
+
+  <ion-label>
+    <p>Password</p>
+  </ion-label>
+  <ion-input type="password" class="input-custom-style"></ion-input>
+  <ion-label>
+   <p id="forget-password">
+     <a routerLink="/">Forget Password ? </a>
+   </p>
+  </ion-label>
+
+<fieldset>
+  <legend>Or</legend>
+  <ion-button
+  class="ion-text-left"
+  color="success"
+  expand="block"
+  size="large">
+    <ion-icon name="google" slot="start"></ion-icon>
+    Google
+  </ion-button>
+
+  <ion-button
+  class="ion-text-left"
+  color="success"
+  expand="block"
+  size="large">
+    <ion-icon name="facebook" slot="start"></ion-icon>
+    Facebook
+  </ion-button>
+
+  <ion-button
+  class="ion-text-left"
+  color="success"
+  expand="block"
+  size="large">
+    <ion-icon name="twitter" slot="start"></ion-icon>
+    Twiter
+  </ion-button>
+
+</fieldset>
 </form>
+
+  </ion-card-content>
+</ion-card>
+
 </ion-content>
