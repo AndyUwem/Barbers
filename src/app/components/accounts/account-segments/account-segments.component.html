@@ -10,7 +10,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content [ngSwitch]="selectedSegment">
+  <ng-container *ngSwitchCase="'login'">
+    <app-login></app-login>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'register'">
+    <app-register-user></app-register-user>
+  </ng-container>
 
 </ion-content>
 
