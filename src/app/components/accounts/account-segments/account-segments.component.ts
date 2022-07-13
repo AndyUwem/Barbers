@@ -26,7 +26,7 @@ ionViewWillEnter(){
 
 onFilteredSegment(e: Event){
       const event = e as CustomEvent<SegmentChangeEventDetail>;
-      console.log(event.detail);
+      this.selectedSegment = event.detail.value;
 }
 
 }
