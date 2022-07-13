@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SegmentChangeEventDetail } from '@ionic/core';
-import { User } from 'src/app/interface/user.interface';
-import { AccountsService } from '../accounts/accounts.service';
 
 @Component({
   selector: 'app-about',
@@ -12,17 +9,12 @@ import { AccountsService } from '../accounts/accounts.service';
 export class AboutPage implements OnInit {
 
 
-  public isLoading: boolean;
-  public newCustomerForm: FormGroup;
-  public gender = ['none', 'M', 'F'];
+  isLoading: boolean;
   selectedSegment: string;
 
-  constructor(
-    private fb: FormBuilder,
-    private accountsService: AccountsService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.onFormInitialization();
     this.selectedSegment = 'login';
   }
 
@@ -31,56 +23,12 @@ ionViewWillEnter(){
   this.isLoading = false;
 }
 
- onSubmit(): void{
-  if(!this.newCustomerForm.valid){
-    return;
-  }
-  this.isLoading = !this.isLoading;
-  this.handleNewCustomer();
-}
 
 onFilteredSegment(e: Event){
       const event = e as CustomEvent<SegmentChangeEventDetail>;
       this.log(event.detail);
 }
 
-private onFormInitialization(): void{
-      this.newCustomerForm = this.fb.group({
-        firstName: this.fb.control('', [Validators.required]),
-        lastName: this.fb.control('', [Validators.required]),
-        phone: this.fb.control('', [Validators.required]),
-        age: this.fb.control('', [Validators.required]),
-        gender: this.fb.control('', [Validators.required]),
-        address: this.fb.control('', [Validators.required]),
-        email: this.fb.control('', [Validators.required]),
-        password: this.fb.control('', [Validators.required])
-     });
-}
-
-private handleNewCustomer(): void{
-   const formInput = this.newCustomerForm.controls;
-
-  const customer: User = {
-    id: formInput.phone.value,
-    firstName: formInput.firstName.value,
-    lastName: formInput.lastName.value,
-    address: formInput.address.value,
-    phone: formInput.phone.value,
-    age: formInput.age.value,
-    gender: formInput.gender.value
-  };
-
-
-  this.accountsService
-      .registerNewCustomer(customer)
-      .subscribe({
-        next: (responseData: User) => {
-          this.isLoading = !this.isLoading;
-          this.log(responseData);
-        },
-        error: () => this.log('something went wrong')
-      });
-}
 
 private log(data: any): void{ console.log(data); }
 
