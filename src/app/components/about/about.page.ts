@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { SegmentChangeEventDetail } from '@ionic/core';
 import { User } from 'src/app/interface/user.interface';
 import { AccountsService } from '../accounts/accounts.service';
 
@@ -15,6 +15,7 @@ export class AboutPage implements OnInit {
   public isLoading: boolean;
   public newCustomerForm: FormGroup;
   public gender = ['none', 'M', 'F'];
+  selectedSegment: string;
 
   constructor(
     private fb: FormBuilder,
@@ -22,6 +23,7 @@ export class AboutPage implements OnInit {
 
   ngOnInit() {
     this.onFormInitialization();
+    this.selectedSegment = 'login';
   }
 
 
@@ -29,14 +31,17 @@ ionViewWillEnter(){
   this.isLoading = false;
 }
 
-
-public onSubmit(): void{
+ onSubmit(): void{
   if(!this.newCustomerForm.valid){
     return;
   }
-
   this.isLoading = !this.isLoading;
   this.handleNewCustomer();
+}
+
+onFilteredSegment(e: Event){
+      const event = e as CustomEvent<SegmentChangeEventDetail>;
+      this.log(event.detail);
 }
 
 private onFormInitialization(): void{

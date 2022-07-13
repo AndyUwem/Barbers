@@ -46,6 +46,10 @@ const routes: Routes = [
   },
 
   {
+    path: 'about',
+    loadChildren: () => import('../app/components/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
     path: '',
     redirectTo: 'navigation-panel',
     pathMatch: 'full',

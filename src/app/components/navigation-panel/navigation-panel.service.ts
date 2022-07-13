@@ -26,7 +26,7 @@ export class NavigationPanelService {
       { url: '/apointment', name: 'cut', label: 'Book'},
       { url: '/my-appointments', name: 'time', label: 'Appointments'},
       { url: '/my-barbers', name: 'globe', label: 'Your Barbers'},
-      { url: 'navigation-panel/nav/about', name: 'information-circle', label: 'About'}
+      { url: '/about', name: 'information-circle', label: 'About'}
     ];
   }
 

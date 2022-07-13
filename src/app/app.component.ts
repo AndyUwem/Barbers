@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
 
 private checkInternetConnection(){
   setTimeout(() => {
-    if(!navigator.onLine){
+    if(navigator.onLine){
       this.isLoading = false;
     }
     else{
