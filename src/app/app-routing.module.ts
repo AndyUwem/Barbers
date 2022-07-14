@@ -10,6 +10,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'accounts',
+    loadChildren: () =>
+      import('./components/accounts/accounts.module').then(
+        (m) => m.AccountsModule
+      ),
+  },
+  {
     path: 'navigation-panel',
     loadChildren: () =>
       import('./components/navigation-panel/navigation-panel.module').then(
@@ -50,17 +57,16 @@ const routes: Routes = [
     loadChildren: () => import('../app/components/about/about.module').then( m => m.AboutPageModule)
   },
   {
-    path: '',
-    redirectTo: 'navigation-panel',
-    pathMatch: 'full',
-  },
-  {
     path: 'my-appointments',
     loadChildren: () => import('./components/my-appointments/my-appointments.module').then(
       m => m.MyAppointmentsPageModule)
-  }
+  },
 
-
+  {
+    path: '',
+    redirectTo: 'accounts',
+    pathMatch: 'full',
+  },
 
 ];
 

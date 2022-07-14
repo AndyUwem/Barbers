@@ -1,3 +1,4 @@
+
 .login-container{
 
   .input-custom-style{
@@ -44,4 +45,13 @@
 
 .custom-social-button{
    text-transform: none;
+}
+
+
+.invalid-input{
+  border: 1px solid red;
+}
+
+.valid-input{
+  border: 1px solid rgb(61, 230, 14);
 }

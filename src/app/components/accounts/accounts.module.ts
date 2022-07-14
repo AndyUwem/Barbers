@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AccountSegmentsComponent } from './account-segments/account-segments.component';
+import { AccountsRoutingModule } from './accounts.routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 
@@ -20,6 +21,8 @@ import { RegisterUserComponent } from './register-user/register-user.component';
   imports: [
     IonicModule,
     CommonModule,
-    ReactiveFormsModule]
+    ReactiveFormsModule,
+    AccountsRoutingModule
+  ]
 })
 export class AccountsModule {}

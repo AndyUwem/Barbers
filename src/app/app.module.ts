@@ -11,7 +11,6 @@ import { LoaderPageModule } from './components/loader/loader.module';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
   imports: [
      BrowserModule,
      IonicModule.forRoot(),

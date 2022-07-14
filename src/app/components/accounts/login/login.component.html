@@ -3,16 +3,23 @@
     <h2>Welcome Back</h2>
   </ion-card-header>
   <ion-card-content>
-<form>
+<form [formGroup]="loginForm">
   <ion-label>
     <p>Email</p>
   </ion-label>
-  <ion-input type="email" class="input-custom-style"></ion-input>
+  <ion-input
+    formControlName="email"
+    type="email"
+    class="input-custom-style"></ion-input>
 
   <ion-label>
     <p>Password</p>
   </ion-label>
-  <ion-input type="password" class="input-custom-style"></ion-input>
+  <ion-input
+    formControlName="password"
+    type="password"
+    class="input-custom-style"
+    ></ion-input>
   <ion-label>
    <p id="forget-password">
      <a routerLink="/">Forget Password ? </a>
@@ -23,7 +30,8 @@
   class="ion-text-left"
   color="success"
   expand="block"
-  size="large">
+  size="large"
+  (click)="onLoginSubmit()">
     Login
   </ion-button>
 
@@ -42,6 +50,7 @@
   class="custom-social-button"
   color="success"
   expand="full"
+  disabled="true"
   size="large">
     <ion-icon name="logo-facebook" slot="start"></ion-icon>
     <ion-text>Join with Facebook</ion-text>
@@ -51,6 +60,7 @@
   class="custom-social-button"
   color="success"
   expand="full"
+  disabled="true"
   size="large">
     <ion-icon name="logo-twitter" slot="start"></ion-icon>
     <ion-text>Join with Twitter</ion-text>
