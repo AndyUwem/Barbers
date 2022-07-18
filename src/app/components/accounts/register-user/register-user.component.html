@@ -84,7 +84,7 @@
   size="large"
   style="margin: 5px 3%;"
   type="submit"
-  [disabled]="!newCustomerForm.valid">
+  >
   {{ isLoading ? 'Processing' : 'Submit'}}
   <div class="ion-margin-start" *ngIf="isLoading">
     <ion-spinner class="spinner" color="secondary" name="lines"></ion-spinner>
