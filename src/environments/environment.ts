@@ -4,7 +4,17 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://ionic-barbers-app-default-rtdb.firebaseio.com/'
+  apiUrl: 'https://ionic-barbers-app-default-rtdb.firebaseio.com/',
+  firebaseConfig: {
+    apiKey: 'AIzaSyAYQ3hJK0Bd_LYzNU158oZkmGXC7Thi0WU',
+    authDomain: 'ionic-barbers-app.firebaseapp.com',
+    databaseURL: 'https://ionic-barbers-app-default-rtdb.firebaseio.com',
+    projectId: 'ionic-barbers-app',
+    storageBucket: 'ionic-barbers-app.appspot.com',
+    messagingSenderId: '63309029145',
+    appId: '1:63309029145:web:4c3f00951051becd3cef88',
+    measurementId: 'G-H7MBN7XWJP'
+  }
 };
 
 /*
