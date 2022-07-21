@@ -14,7 +14,7 @@ export class RegisterUserComponent implements OnInit {
 
   public newCustomerForm: FormGroup;
   public gender = ['none', 'M', 'F'];
-  public isLoading: boolean;
+  public isLoading = true;
 
 
   constructor(
@@ -34,6 +34,7 @@ export class RegisterUserComponent implements OnInit {
 
   ngOnInit() {
     this.onFormInitialization();
+    setTimeout(() => this.isLoading = !this.isLoading, 1000);
   }
 
   onSubmit(): void{

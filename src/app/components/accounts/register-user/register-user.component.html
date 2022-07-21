@@ -1,4 +1,11 @@
-<form [formGroup]="newCustomerForm" (ngSubmit)="onSubmit()">
+<div *ngIf="isLoading" class="ion-text-center ion-padding-top">
+  <ion-spinner
+  name="lines-small"
+  color="success"
+  ></ion-spinner>
+</div>
+
+<form [hidden]="isLoading" [formGroup]="newCustomerForm" (ngSubmit)="onSubmit()">
   <ion-card-header>
     <h4>Your Information</h4>
   </ion-card-header>
