@@ -10,15 +10,18 @@
   <ion-input
     formControlName="email"
     inputmode="email"
+    (ngModelChange)="onValueChange()"
     class="input-custom-style"
-    [class.invalid-input]="fControl['email'].invalid && fControl['email'].touched"
+    [class.invalid-input]="fControl['email'].invalid &&
+    fControl['email'].touched || !isFormValid"
     >
   </ion-input>
   <div
-   *ngIf="fControl['email'].invalid && fControl['email'].touched">
+   *ngIf="fControl['email'].invalid &&
+    fControl['email'].touched || !isFormValid">
     <ion-note
     color="danger"
-    *ngIf="fControl['email'].errors['required']"
+    *ngIf="fControl['email'].errors['required'] || !isFormValid"
   > Invalid email address</ion-note>
 <ion-note
   color="danger"
@@ -32,22 +35,16 @@
     formControlName="password"
     inputmode="password"
     class="input-custom-style"
-    [class.invalid-input]="fControl['password'].invalid && fControl['password'].touched"
+    [class.invalid-input]="fControl['password'].invalid &&
+    fControl['password'].touched || !isFormValid"
     ></ion-input>
     <div
-     *ngIf="fControl['password'].invalid && fControl['password'].touched">
+     *ngIf="fControl['password'].invalid &&
+     fControl['password'].touched || !isFormValid">
       <ion-note
       color="danger"
-      *ngIf="fControl['password'].errors['required']"
+      *ngIf="fControl['password'].errors['required'] || !isFormValid"
     > Invalid password</ion-note>
-    <ion-note
-    color="danger"
-    *ngIf="fControl['password'].errors['minlength']"
-  > Password too short !</ion-note>
-  <ion-note
-    color="danger"
-    *ngIf="fControl['password'].errors['maxlength']"
-  > Password is too long !</ion-note>
     </div>
   <ion-label>
    <p id="forget-password">

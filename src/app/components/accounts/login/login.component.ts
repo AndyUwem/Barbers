@@ -14,6 +14,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
+  public isFormValid: boolean;
 
   constructor(
     private readonly alertCtrl: AlertController,
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
   }
 
   onInitializeLoginForm(): void{
+    this.isFormValid = true;
     this.loginForm = new FormGroup({
           email: new FormControl(null, {
             updateOn: 'change',
@@ -48,17 +50,21 @@ export class LoginComponent implements OnInit {
           }),
           password: new FormControl(null, {
             updateOn: 'change',
-            validators: [
-              Validators.required,
-              Validators.maxLength(30),
-              Validators.minLength(6)]
+            validators: [Validators.required]
           })
+    });
+  }
+
+  onValueChange(){
+    this.loginForm.valueChanges.subscribe({
+       next: () => this.isFormValid = true
     });
   }
 
   onLoginSubmit(): void{
      if(this.loginForm.invalid){
        console.log('email or password invalid');
+       this.isFormValid =  false;
      }
      else{
       this.login({...this.loginForm.value});
