@@ -9,17 +9,46 @@
   </ion-label>
   <ion-input
     formControlName="email"
-    type="email"
-    class="input-custom-style"></ion-input>
-
+    inputmode="email"
+    class="input-custom-style"
+    [class.invalid-input]="fControl['email'].invalid && fControl['email'].touched"
+    >
+  </ion-input>
+  <div
+   *ngIf="fControl['email'].invalid && fControl['email'].touched">
+    <ion-note
+    color="danger"
+    *ngIf="fControl['email'].errors['required']"
+  > Invalid email address</ion-note>
+<ion-note
+  color="danger"
+  *ngIf="fControl['email'].errors['maxlength']"
+> Email is too long !</ion-note>
+  </div>
   <ion-label>
     <p>Password</p>
   </ion-label>
   <ion-input
     formControlName="password"
-    type="password"
+    inputmode="password"
     class="input-custom-style"
+    [class.invalid-input]="fControl['password'].invalid && fControl['password'].touched"
     ></ion-input>
+    <div
+     *ngIf="fControl['password'].invalid && fControl['password'].touched">
+      <ion-note
+      color="danger"
+      *ngIf="fControl['password'].errors['required']"
+    > Invalid password</ion-note>
+    <ion-note
+    color="danger"
+    *ngIf="fControl['password'].errors['minlength']"
+  > Password too short !</ion-note>
+  <ion-note
+    color="danger"
+    *ngIf="fControl['password'].errors['maxlength']"
+  > Password is too long !</ion-note>
+    </div>
   <ion-label>
    <p id="forget-password">
      <a routerLink="/">Forget Password ? </a>

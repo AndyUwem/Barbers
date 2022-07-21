@@ -13,7 +13,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  public loginForm: FormGroup;
 
   constructor(
     private readonly alertCtrl: AlertController,
@@ -29,6 +29,9 @@ export class LoginComponent implements OnInit {
       return this.loginForm.get('password').value as string;
     }
 
+    get fControl(){
+      return this.loginForm.controls;
+ }
 
   ngOnInit() {
    this.onInitializeLoginForm();
@@ -36,8 +39,20 @@ export class LoginComponent implements OnInit {
 
   onInitializeLoginForm(): void{
     this.loginForm = new FormGroup({
-          email: new FormControl('', [Validators.email, Validators.required]),
-          password: new FormControl('', [Validators.required])
+          email: new FormControl(null, {
+            updateOn: 'change',
+            validators: [
+              Validators.required,
+              Validators.email,
+              Validators.max(40)]
+          }),
+          password: new FormControl(null, {
+            updateOn: 'change',
+            validators: [
+              Validators.required,
+              Validators.maxLength(30),
+              Validators.minLength(6)]
+          })
     });
   }
 
@@ -50,7 +65,7 @@ export class LoginComponent implements OnInit {
      }
   }
 
-  login(loginData: LoginData) {
+  private login(loginData: LoginData) {
         this.loaderService.load()
         .then((spinner: HTMLIonLoadingElement) => {
           spinner.present();
@@ -63,22 +78,21 @@ export class LoginComponent implements OnInit {
             },
             error: (e) => {
               spinner.dismiss();
-              console.log(e);
               const errorMassage = e.error.error.message;
 
               if(errorMassage === 'EMAIL_NOT_FOUND' || errorMassage === 'INVALID_PASSWORD'){
-                this.showErrorAlert('Invalid email or password');
+                this.showErrorAlert();
               }
             }
           });
         });
   }
 
-  private showErrorAlert(message: string): void{
+  private showErrorAlert(): void{
           this.alertCtrl.create({
            header: 'Login Failed !',
            keyboardClose: true,
-           message,
+           message: 'Invalid email or password',
            buttons: ['OK']
         })
         .then((alert: HTMLIonAlertElement) => {
