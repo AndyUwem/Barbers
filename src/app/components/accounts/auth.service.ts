@@ -12,8 +12,9 @@ import { AuthResponseData } from 'src/app/interface/authResponseData.interface';
 
 export class AuthService{
 
-      constructor( private http: HttpClient){
-      }
+  public isAuthenticated = false;
+
+      constructor( private http: HttpClient){}
 
       login({ email, password }: LoginData ){
         return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=

@@ -1,11 +1,11 @@
-<!-- <ng-container >
-</ng-container> -->
-<app-loader *ngIf="isLoading; else route"></app-loader>
+<ng-container
+ *ngIf="isLoading; then loader else dashboard">
+</ng-container>
 
-<ng-template #route>
-  <ion-router-outlet id="main-content"></ion-router-outlet>
+<ng-template #loader>
+  <app-loader></app-loader>
 </ng-template>
-<!--
+
 <ng-template #dashboard>
   <ion-app>
     <ion-split-pane contentId="main-content">
@@ -41,4 +41,4 @@
     </ion-split-pane>
   </ion-app>
 
-</ng-template> -->
+</ng-template>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       import('./components/navigation-panel/navigation-panel.module').then(
         (m) => m.NavigationPanelPageModule
       ),
+      canLoad: [AuthGuard]
   },
   {
     path: 'back-button',
@@ -64,7 +66,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'accounts',
+    redirectTo: 'navigation-panel',
     pathMatch: 'full',
   },
 

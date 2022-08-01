@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 import { LoaderService } from './components/loader/loader.service';
 import { NavigationPanelService } from './components/navigation-panel/navigation-panel.service';
 import { NavRoutes } from './interface/navigation-routes.interface';
@@ -7,10 +8,11 @@ import { NavRoutes } from './interface/navigation-routes.interface';
 templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy{
 
    menuRoutes: Array<NavRoutes>;
    isLoading = true;
+   private connectionInterval: Subscription;
 
   constructor(
     private loaderService: LoaderService,
@@ -19,6 +21,10 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
      this.loadApplication();
+  }
+
+  ngOnDestroy(){
+  this.connectionInterval.unsubscribe();
   }
 
   private loadApplication() {
@@ -42,7 +48,17 @@ private checkInternetConnection(){
       );
     }
   }, 2000);
+
+ this.connectionInterval = interval(2000).subscribe({
+    next: ()=>{
+      if(navigator.onLine){
+        this.isLoading = false;
+      }
+    }
+
+  });
 }
+
 
 private getMenuRoutes(){
  this.menuRoutes = this.navigationService.getMenuRoutes;

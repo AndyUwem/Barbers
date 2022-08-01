@@ -3,13 +3,14 @@
     <h2>Welcome Back</h2>
   </ion-card-header>
   <ion-card-content>
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
   <ion-label>
     <p>Email</p>
   </ion-label>
   <ion-input
     formControlName="email"
     inputmode="email"
+    type="email"
     (ngModelChange)="onValueChange()"
     class="input-custom-style"
     [class.invalid-input]="fControl['email'].invalid &&
@@ -34,6 +35,7 @@
   <ion-input
     formControlName="password"
     inputmode="password"
+    type="password"
     class="input-custom-style"
     [class.invalid-input]="fControl['password'].invalid &&
     fControl['password'].touched || !isFormValid"
@@ -57,7 +59,7 @@
   color="success"
   expand="block"
   size="large"
-  (click)="onLoginSubmit()">
+  type="submit">
     Login
   </ion-button>
 
