@@ -9,7 +9,10 @@
 <ng-template #dashboard>
   <ion-app>
     <ion-split-pane contentId="main-content">
-      <ion-menu contentId="main-content" side="start">
+      <ion-menu
+      *ngIf="!disableSideMenu"
+      contentId="main-content"
+      side="start">
         <ion-header >
           <ion-toolbar>
             <ion-chip>
@@ -36,6 +39,13 @@
             </ion-list>
          </div>
         </ion-content>
+        <ion-button
+        color="danger"
+        expand="full"
+        (click)="logOut()"
+        >
+        Log Out <ion-icon name="log-out-outline" slot="end"></ion-icon>
+        </ion-button>
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>
