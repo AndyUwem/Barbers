@@ -12,6 +12,8 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
+
+
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public isFormValid: boolean;
@@ -42,11 +44,11 @@ export class LoginComponent implements OnInit {
   onInitializeLoginForm(): void {
     this.isFormValid = true;
     this.loginForm = new FormGroup({
-      email: new FormControl(null, {
+      email: new FormControl('', {
         updateOn: 'change',
         validators: [Validators.required, Validators.email, Validators.max(40)],
       }),
-      password: new FormControl(null, {
+      password: new FormControl('', {
         updateOn: 'change',
         validators: [Validators.required],
       }),
@@ -60,12 +62,17 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit(): void {
-    if (this.loginForm.invalid) {
-      console.log('email or password invalid');
-      this.isFormValid = false;
-    } else {
-      this.login({ ...this.loginForm.value });
-    }
+
+    const handleFormValidation = () =>{
+      if (this.loginForm.invalid) {
+        console.log('email or password invalid');
+        this.isFormValid = false;
+      } else {
+        this.login({ ...this.loginForm.value });
+      }
+    };
+
+    this.handleInternetStatus(handleFormValidation);
   }
 
   private login(loginData: LoginData) {
@@ -80,9 +87,32 @@ export class LoginComponent implements OnInit {
         error: (e) => {
           spinner.dismiss();
 
+            const checkLoginServerError = () => {
+              const errorMassage = e.error.error.message;
+              if (
+                errorMassage === 'EMAIL_NOT_FOUND' ||
+                errorMassage === 'INVALID_PASSWORD'
+              ) {
+                this.showErrorAlert();
+              }
+            };
+
+            this.handleInternetStatus(checkLoginServerError);
         },
       });
     });
+  }
+
+
+  private handleInternetStatus(func: any): void{
+      if(!navigator.onLine){
+        this.loaderService
+        .showToast(null,'Internet error', 'top','wifi','dark');
+        return;
+      }
+      else{
+        func();
+      }
   }
 
   private showErrorAlert(): void {

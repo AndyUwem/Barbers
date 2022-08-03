@@ -14,15 +14,15 @@
     (ngModelChange)="onValueChange()"
     class="input-custom-style"
     [class.invalid-input]="fControl['email'].invalid &&
-    fControl['email'].touched || !isFormValid"
+    fControl['email'].touched"
     >
   </ion-input>
   <div
    *ngIf="fControl['email'].invalid &&
-    fControl['email'].touched || !isFormValid">
+    fControl['email'].touched">
     <ion-note
     color="danger"
-    *ngIf="fControl['email'].errors['required'] || !isFormValid"
+    *ngIf="fControl['email'].errors['required']"
   > Invalid email address</ion-note>
 <ion-note
   color="danger"
@@ -38,14 +38,14 @@
     type="password"
     class="input-custom-style"
     [class.invalid-input]="fControl['password'].invalid &&
-    fControl['password'].touched || !isFormValid"
+    fControl['password'].touched "
     ></ion-input>
     <div
      *ngIf="fControl['password'].invalid &&
-     fControl['password'].touched || !isFormValid">
+     fControl['password'].touched">
       <ion-note
       color="danger"
-      *ngIf="fControl['password'].errors['required'] || !isFormValid"
+      *ngIf="fControl['password'].errors['required']"
     > Invalid password</ion-note>
     </div>
   <ion-label>

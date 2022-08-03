@@ -14,8 +14,8 @@ export class AppComponent implements OnInit, OnDestroy{
 
    menuRoutes: Array<NavRoutes>;
    isLoading = true;
-   disableSideMenu = false;
    private sub = [];
+   private previousAuthState = false;
 
   constructor(
     private loaderService: LoaderService,
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   logOut(){
-    this.logOut();
+    this.auth.logOut();
   }
 
   private loadApplication() {
@@ -42,11 +42,10 @@ export class AppComponent implements OnInit, OnDestroy{
 
       const authSubscription = this.auth.isUserAuthenticated
       .subscribe( isAuthenticated => {
-        if(!isAuthenticated){
+        if(!isAuthenticated && this.previousAuthState !== isAuthenticated){
           this.router.navigateByUrl('/accounts');
-          this.disableSideMenu = true;
         }
-        this.disableSideMenu = true;
+        this.previousAuthState = isAuthenticated;
       });
 
       this.sub.push(authSubscription);
