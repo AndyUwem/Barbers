@@ -79,14 +79,7 @@ export class LoginComponent implements OnInit {
         },
         error: (e) => {
           spinner.dismiss();
-          const errorMassage = e.error.error.message;
 
-          if (
-            errorMassage === 'EMAIL_NOT_FOUND' ||
-            errorMassage === 'INVALID_PASSWORD'
-          ) {
-            this.showErrorAlert();
-          }
         },
       });
     });
