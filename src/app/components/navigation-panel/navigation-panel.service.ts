@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { NavRoutes } from 'src/app/interface/navigation-routes.interface';
 
 
@@ -29,6 +30,5 @@ export class NavigationPanelService {
       { url: '/about', name: 'information-circle', label: 'About'}
     ];
   }
-
 
 }

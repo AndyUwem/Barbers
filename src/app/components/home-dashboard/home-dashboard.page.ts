@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { HomeDashboardService } from './home-dashboard.service';
 
 type ImageUrl = {
@@ -12,7 +12,7 @@ type ImageUrl = {
   styleUrls: ['./home-dashboard.page.scss'],
 })
 
-export class HomeDashboardPage implements OnInit {
+export class HomeDashboardPage {
 
 
   public slideOpts = {
@@ -25,11 +25,18 @@ export class HomeDashboardPage implements OnInit {
 
   public cards = [];
 
-constructor(private homeDashboardService: HomeDashboardService) { }
+constructor(
+  private readonly menu: MenuController,
+  private homeDashboardService: HomeDashboardService
+  ) { }
 
-ngOnInit() {
+ionViewWillEnter() {
 this.cards = [...this.homeDashboardService.getCards];
 this.slidesImages = [...this.homeDashboardService.getSlidesImages];
+}
+
+ionViewDidEnter(){
+    this.menu.enable(true);
 }
 
 }

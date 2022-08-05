@@ -1,10 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval, Subscription } from 'rxjs';
+import { MenuController } from '@ionic/angular';
+
+import { interval } from 'rxjs';
+
 import { AuthService } from './components/accounts/auth.service';
 import { LoaderService } from './components/loader/loader.service';
 import { NavigationPanelService } from './components/navigation-panel/navigation-panel.service';
 import { NavRoutes } from './interface/navigation-routes.interface';
+
+
 @Component({
   selector: 'app-root',
 templateUrl: 'app.component.html',
@@ -14,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy{
 
    menuRoutes: Array<NavRoutes>;
    isLoading = true;
+   disableIonMenu  = true;
    private sub = [];
    private previousAuthState = false;
 
@@ -21,7 +27,8 @@ export class AppComponent implements OnInit, OnDestroy{
     private loaderService: LoaderService,
     private navigationService: NavigationPanelService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private menu: MenuController
     ) {}
 
   ngOnInit() {
@@ -30,10 +37,16 @@ export class AppComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(){
   this.sub.forEach(sub => sub.unsubscribe());
+  console.log('app component destroyed');
   }
 
+
   logOut(){
-    this.auth.logOut();
+    this.menu.close()
+    .then(() => {
+      this.menu.enable(false);
+      this.auth.logOut();
+    });
   }
 
   private loadApplication() {

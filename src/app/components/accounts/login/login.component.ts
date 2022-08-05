@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { AuthResponseData } from 'src/app/interface/authResponseData.interface';
 import { LoginData } from 'src/app/interface/login-data.interface';
 import { LoaderService } from '../../loader/loader.service';
+import { NavigationPanelService } from '../../navigation-panel/navigation-panel.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly loaderService: LoaderService,
     private readonly authService: AuthService,
+    private readonly navigationService: NavigationPanelService,
     private readonly alertCtrl: AlertController,
     private readonly router: Router
   ) {}
@@ -79,16 +81,16 @@ export class LoginComponent implements OnInit {
     this.loaderService.load().then((spinner: HTMLIonLoadingElement) => {
       spinner.present();
       this.authService.login(loginData).subscribe({
-        next: (responseData: AuthResponseData) => {
+        next: () => {
           spinner.dismiss();
-          console.log(responseData);
           this.router.navigateByUrl('/navigation-panel/nav/home');
+          this.loginForm.reset();
         },
-        error: (e) => {
+        error: (err) => {
           spinner.dismiss();
 
             const checkLoginServerError = () => {
-              const errorMassage = e.error.error.message;
+              const errorMassage = err.error.error.message;
               if (
                 errorMassage === 'EMAIL_NOT_FOUND' ||
                 errorMassage === 'INVALID_PASSWORD'
