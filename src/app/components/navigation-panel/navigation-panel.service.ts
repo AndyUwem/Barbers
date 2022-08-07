@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { NavRoutes } from 'src/app/interface/navigation-routes.interface';
 
 
@@ -12,7 +11,6 @@ export class NavigationPanelService {
   public backToHomeUrl = '/navigation-panel/nav/home';
 
   constructor() { }
-
 
   public get getTabRoutes(): Array<NavRoutes>{
     return [

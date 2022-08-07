@@ -6,7 +6,7 @@ import { SegmentChangeEventDetail } from '@ionic/angular';
   templateUrl: './account-segments.component.html',
   styleUrls: ['./account-segments.component.scss'],
 })
-export class AccountSegmentsComponent implements OnInit {
+export class AccountSegmentsComponent {
 
 
   isLoading: boolean;
@@ -14,12 +14,9 @@ export class AccountSegmentsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.selectedSegment = 'login';
-  }
-
 
 ionViewWillEnter(){
+  this.selectedSegment = 'login';
   this.isLoading = false;
 }
 

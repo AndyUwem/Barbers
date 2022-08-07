@@ -1,0 +1,52 @@
+
+.register-container{
+
+  fieldset{
+    width: fit-content;
+    border: none;
+    border-top: 1px solid var(--color-light-blue);
+    padding: 0%;
+    margin: 5% auto;
+  }
+
+   ion-label, legend, h4{
+    color: var(--color-light-blue);
+    font-weight: bold;
+   }
+
+   ion-grid{
+    margin-bottom: 5%;
+   }
+
+   ion-input{
+    color: var(--color-gray);
+   }
+   legend{
+    text-align: center;
+    padding: 0% 5%;
+    text-transform: uppercase;
+   }
+
+}
+
+.sucess-page{
+  .success-icon, h4{
+    text-align:  center;
+    color: var(--color-light-blue);
+    margin: 30% auto;
+  }
+
+  .success-icon{
+    width: 100%;
+    height: fit-content;
+    padding: 0px;
+  }
+
+  ion-icon{
+    font-size: 10rem;
+  }
+
+  ion-button{
+    margin: 0px 2rem;
+  }
+}

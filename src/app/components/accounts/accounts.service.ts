@@ -17,7 +17,7 @@ export class AccountsService {
 
 
       registerNewCustomer(user: User): Observable<User>{
-        return this.http.patch<User>(`${this.usersApi}/barbers/customers/${user.id}.json`, {...user });
+        return this.http.post<User>(`${this.usersApi}/barbers/customers.json`, {...user });
       }
 
       addBarberToMyList(customerId: number, barber: Barber): Observable<Barber>{
@@ -35,6 +35,7 @@ export class AccountsService {
         age:51,
         firstName:'James',
         gender:'M',
+        email: 'ushshshsh@gmail.com',
         lastName:'Maddison',
         phone:8287272
           };

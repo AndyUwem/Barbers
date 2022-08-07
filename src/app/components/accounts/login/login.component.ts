@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginData).subscribe({
         next: () => {
           spinner.dismiss();
-          this.router.navigateByUrl('/navigation-panel/nav/home');
+          this.router.navigateByUrl(this.navigationService.backToHomeUrl);
           this.loginForm.reset();
         },
         error: (err) => {
