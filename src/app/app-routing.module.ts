@@ -68,7 +68,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'navigation-panel',
     pathMatch: 'full',
+  },  {
+    path: 'user-profile',
+    loadChildren: () => import('./components/accounts/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   },
+
 
 ];
 
