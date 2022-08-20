@@ -63,16 +63,15 @@ const routes: Routes = [
     loadChildren: () => import('./components/my-appointments/my-appointments.module').then(
       m => m.MyAppointmentsPageModule)
   },
-
+  {
+    path: 'user-profile',
+    loadChildren: () => import('./components/accounts/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+  },
   {
     path: '',
     redirectTo: 'navigation-panel',
     pathMatch: 'full',
-  },  {
-    path: 'user-profile',
-    loadChildren: () => import('./components/accounts/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   },
-
 
 ];
 

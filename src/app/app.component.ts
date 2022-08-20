@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy{
    menuRoutes: Array<NavRoutes>;
    isLoading = true;
    disableIonMenu  = true;
-   private sub = [];
+   private subscription = [];
    private previousAuthState = false;
 
   constructor(
@@ -36,8 +36,8 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(){
-  this.sub.forEach(sub => sub.unsubscribe());
-  console.log('app component destroyed');
+  this.subscription
+      .forEach(subscription => subscription.unsubscriptionscribe());
   }
 
 
@@ -49,11 +49,16 @@ export class AppComponent implements OnInit, OnDestroy{
     });
   }
 
+  navigateToUserProfile(): void{
+      this.router.navigateByUrl('user-profile');
+      this.menu.close();
+  }
+
   private loadApplication() {
       this.checkInternetConnection();
       this.getMenuRoutes();
 
-      const authSubscription = this.auth.isUserAuthenticated
+      const authSubscriptionscription = this.auth.isUserAuthenticated
       .subscribe( isAuthenticated => {
         if(!isAuthenticated && this.previousAuthState !== isAuthenticated){
           this.router.navigateByUrl('/accounts');
@@ -61,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy{
         this.previousAuthState = isAuthenticated;
       });
 
-      this.sub.push(authSubscription);
+      this.subscription.push(authSubscriptionscription);
   }
 
 private checkInternetConnection(){
@@ -81,7 +86,7 @@ private checkInternetConnection(){
     }
   }, 2000);
 
-   const connectionSubscription = interval(2000).subscribe({
+   const connectionSubscriptionscription = interval(2000).subscribe({
     next: ()=>{
       if(navigator.onLine){
         this.isLoading = false;
@@ -90,7 +95,7 @@ private checkInternetConnection(){
 
   });
 
-  this.sub.push(connectionSubscription);
+  this.subscription.push(connectionSubscriptionscription);
 }
 
 
