@@ -33,7 +33,10 @@
               button="true"
               lines="none"
               [routerLink]="menuRoute.url">
-             <ion-icon slot="start" [name]="menuRoute.name"></ion-icon>
+             <ion-icon
+               slot="start"
+               [name]="menuRoute.name"
+               ></ion-icon>
              <ion-label>{{menuRoute.label}}</ion-label>
              </ion-item>
             </ion-menu-toggle>
