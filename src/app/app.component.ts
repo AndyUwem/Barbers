@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy{
     private loaderService: LoaderService,
     private navigationService: NavigationPanelService,
     private auth: AuthService,
+    private navService: NavigationPanelService,
     private router: Router,
     private menu: MenuController
     ) {}
@@ -52,6 +53,14 @@ export class AppComponent implements OnInit, OnDestroy{
   navigateToUserProfile(): void{
       this.router.navigateByUrl('user-profile');
       this.menu.close();
+  }
+
+  onMenuOpened(){
+   this.navService.sideMenuIconName.next('close-outline');
+  }
+
+  onMenuClosed(){
+   this.navService.sideMenuIconName.next('reorder-three-outline');
   }
 
   private loadApplication() {

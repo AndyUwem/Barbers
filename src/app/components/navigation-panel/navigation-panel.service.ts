@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { NavRoutes } from 'src/app/interface/navigation-routes.interface';
 
 
@@ -9,6 +10,7 @@ import { NavRoutes } from 'src/app/interface/navigation-routes.interface';
 export class NavigationPanelService {
 
   public backToHomeUrl = '/navigation-panel/nav/home';
+  public sideMenuIconName = new Subject<string>();
 
   constructor() { }
 
@@ -28,5 +30,6 @@ export class NavigationPanelService {
       { url: '/about', name: 'information-circle', label: 'About'}
     ];
   }
+
 
 }

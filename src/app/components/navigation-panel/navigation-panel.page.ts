@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { NavigationPanelService } from './navigation-panel.service';
 
 @Component({
@@ -9,11 +10,26 @@ import { NavigationPanelService } from './navigation-panel.service';
 export class NavigationPanelPage implements OnInit {
 
   public tabRoutes = [];
+  public iconName: string;
 
-  constructor(private navigationPanelService: NavigationPanelService) { }
+  constructor(
+    private navigationPanelService: NavigationPanelService,
+    private navService: NavigationPanelService,
+    private readonly menuCtrl: MenuController
+    ) { }
 
   ngOnInit() {
     this.tabRoutes = [...this.navigationPanelService.getTabRoutes];
+    this.iconName = 'reorder-three-outline';
   }
 
+  onMenuButtonClick(){
+    this.menuCtrl.toggle();
+    this.navService.sideMenuIconName.asObservable()
+    .subscribe({
+      next: (iconName: string) =>{
+        this.iconName = iconName;
+      }
+    });
+  }
 }

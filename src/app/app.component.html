@@ -10,6 +10,8 @@
   <ion-app>
     <ion-split-pane contentId="main-content">
       <ion-menu
+      (ionDidOpen)="onMenuOpened()"
+      (ionDidClose)="onMenuClosed()"
       type="push"
       [disabled]="disableIonMenu"
       contentId="main-content"
