@@ -17,7 +17,7 @@ export class NavigationPanelService {
   public get getTabRoutes(): Array<NavRoutes>{
     return [
       { url: 'home', name: 'home', label: 'Home'},
-      { url: 'profile', name: 'person-circle', label: 'Profile'},
+      { url: 'settings', name: 'settings', label: 'Settings'},
     ];
   }
 
@@ -27,7 +27,7 @@ export class NavigationPanelService {
       { url: '/apointment', name: 'cut', label: 'Book'},
       { url: '/my-appointments', name: 'time', label: 'Appointments'},
       { url: '/my-barbers', name: 'globe', label: 'Your Barbers'},
-      { url: '/about', name: 'information-circle', label: 'About'}
+      { url: '/about', name: 'information-circle', label: 'About & Help'}
     ];
   }
 

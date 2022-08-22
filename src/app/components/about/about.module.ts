@@ -6,12 +6,14 @@ import { IonicModule } from '@ionic/angular';
 import { AboutPageRoutingModule } from './about-routing.module';
 
 import { AboutPage } from './about.page';
+import { BackButtonPageModule } from 'src/app/reuseables/back-button/back-button.module';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    AboutPageRoutingModule
+    AboutPageRoutingModule,
+    BackButtonPageModule
   ],
   declarations: [AboutPage]
 })

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationPanelService } from '../navigation-panel/navigation-panel.service';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutPage implements OnInit {
 
-  constructor() { }
+  public backToHomeUrl: string;
 
-  ngOnInit() {}
+  constructor(private navService: NavigationPanelService) { }
+
+  ngOnInit() {
+    this.backToHomeUrl = this.navService.backToHomeUrl;
+  }
 
 
 }

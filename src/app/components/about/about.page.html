@@ -1,1 +1,36 @@
 
+<ion-header>
+    <ion-toolbar>
+        <app-back-button [url]="backToHomeUrl" slot="start"></app-back-button>
+        About
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card>
+    <ion-card-header>
+        <img src="assets\barber-icon.png" alt="">
+    </ion-card-header>
+
+    <ion-card-content>
+       <ion-card-title> Barbers </ion-card-title> 
+       <ion-card-subtitle>
+        The barbers software is a technology that was designed to help 
+        barbers communicate and manage their customers in a much more reliable way, 
+        the tool can be used to find or access nearby and only registered barbers on the app, 
+        as a customer the goal of this technology is to notifies you of the following : <br> 
+        <ul>
+            <li>When it's your trun to cut your hair.</li>
+            <li>let's you know if someone is cutting their hair or not.</li>
+            <li>let's you know if a barber has all neccesary tools needed for a particular hair style.</li>
+        </ul>
+       </ion-card-subtitle>
+</ion-card-content>
+</ion-card>
+</ion-content>
+
+<ion-footer scrollY="false">
+    <ion-toolbar>
+        <ion-title class="ion-text-center"> @barbers 2022</ion-title>
+    </ion-toolbar>
+</ion-footer>
